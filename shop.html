@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cửa Hàng & Danh Mục Dược Phẩm - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-search-wrap">
+        <div class="search-box">
+          <input type="text" id="main-search-input" placeholder="Tìm theo tên thuốc, hoạt chất, triệu chứng..." autocomplete="off">
+          <button type="button" onclick="renderProducts()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Tìm thuốc</span>
+          </button>
+        </div>
+        <div class="search-suggestions-dropdown" id="search-suggestions"></div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+        <button class="btn-track-order" onclick="window.location.href='order-tracking.html'">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Tra cứu đơn</span>
+        </button>
+        <button class="cart-trigger-btn" onclick="window.location.href='cart.html'">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item active"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current">Cửa Hàng & Danh Mục Sản Phẩm</span>
+    </div>
+  </div>
+
+  <!-- Main Catalog Section -->
+  <section class="catalog-section">
+    <div class="container catalog-layout">
+      <!-- Left Sidebar: Multi-criteria Filters -->
+      <aside class="catalog-sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fa-solid fa-filter"></i> Bộ Lọc Tìm Kiếm</h3>
+          <button class="btn-reset-filters" onclick="resetAllFilters()">Đặt lại</button>
+        </div>
+
+        <!-- Filter: Category -->
+        <div class="filter-group">
+          <h4 class="filter-title">Nhóm Danh Mục</h4>
+          <div class="filter-options-list">
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="all" checked onchange="selectCategory('all')">
+              <span>Tất cả sản phẩm</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="otc" onchange="selectCategory('otc')">
+              <span>Thuốc không kê đơn (OTC)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="rx" onchange="selectCategory('rx')">
+              <span>Thuốc kê đơn (Rx)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="supplements" onchange="selectCategory('supplements')">
+              <span>Thực phẩm chức năng</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="devices" onchange="selectCategory('devices')">
+              <span>Thiết bị y tế gia đình</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-cat" value="first-aid" onchange="selectCategory('first-aid')">
+              <span>Vật tư & Sơ cứu vết thương</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter: Classification -->
+        <div class="filter-group">
+          <h4 class="filter-title">Phân loại Dược phẩm</h4>
+          <div class="filter-options-list">
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-class" value="all" checked>
+              <span>Tất cả phân loại</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-class" value="otc">
+              <span class="badge badge-otc">Thuốc không kê đơn (OTC)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-class" value="rx">
+              <span class="badge badge-rx">Thuốc kê đơn (Rx)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-class" value="device">
+              <span class="badge badge-device">Thiết bị y tế</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter: Price Range -->
+        <div class="filter-group">
+          <h4 class="filter-title">Khoảng Giá Bán</h4>
+          <div class="filter-options-list">
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-price" value="all" checked>
+              <span>Tất cả mức giá</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-price" value="under-50">
+              <span>Dưới 50.000 ₫</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-price" value="50-200">
+              <span>50.000 ₫ – 200.000 ₫</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-price" value="200-500">
+              <span>200.000 ₫ – 500.000 ₫</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-price" value="over-500">
+              <span>Trên 500.000 ₫</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter: Target Audience -->
+        <div class="filter-group">
+          <h4 class="filter-title">Đối tượng sử dụng</h4>
+          <div class="filter-options-list">
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-audience" value="all" checked>
+              <span>Mọi đối tượng</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-audience" value="children">
+              <span>Trẻ em & Trẻ sơ sinh</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-audience" value="adults">
+              <span>Người lớn</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-audience" value="elderly">
+              <span>Người cao tuổi</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter: Origin -->
+        <div class="filter-group">
+          <h4 class="filter-title">Xuất xứ thương hiệu</h4>
+          <div class="filter-options-list">
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-origin" value="all" checked>
+              <span>Tất cả xuất xứ</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-origin" value="Việt Nam">
+              <span>Việt Nam (DHG, OPC...)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-origin" value="Pháp">
+              <span>Pháp (Sanofi, UPSA)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-origin" value="Đức">
+              <span>Đức (Bayer, Engelhard)</span>
+            </label>
+            <label class="filter-radio-label">
+              <input type="radio" name="filter-origin" value="Nhật Bản">
+              <span>Nhật Bản (Omron, Rohto)</span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Column: Products Grid -->
+      <main class="catalog-main">
+        <div class="catalog-toolbar">
+          <div class="toolbar-left">
+            <span id="product-count-display">Đang tải danh sách thuốc & vật tư...</span>
+          </div>
+
+          <div class="toolbar-right">
+            <label for="sort-by-select">Sắp xếp theo:</label>
+            <select id="sort-by-select" class="sort-select">
+              <option value="popular">Bán chạy & Đánh giá cao</option>
+              <option value="price-asc">Giá: Thấp đến cao</option>
+              <option value="price-desc">Giá: Cao đến thấp</option>
+              <option value="discount">Đang giảm giá nhiều</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="active-filters-tags" id="active-filters-tags"></div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </main>
+    </div>
+  </section>
+
+  <!-- Product Detail Modal (for quick view) -->
+  <div class="modal" id="product-detail-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-pills text-primary"></i> Thông Tin Dược Lý & Chi Tiết</h3>
+        <button class="modal-close-btn" onclick="closeModal('product-detail-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-product-layout">
+          <img id="modal-product-img" src="" alt="" class="modal-product-img">
+          <div>
+            <span class="badge" id="modal-product-badge">OTC</span>
+            <h2 id="modal-product-title" style="font-size: 18px; font-weight: 800; margin: 8px 0 4px 0;"></h2>
+            <p id="modal-product-ingredient" style="color: var(--primary); font-weight: 600; font-size: 13px; margin-bottom: 6px;"></p>
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px; display: flex; flex-direction: column; gap: 3px;">
+              <span><strong>Số ĐK lưu hành:</strong> <span id="modal-product-reg"></span></span>
+              <span><strong>Xuất xứ / Hãng:</strong> <span id="modal-product-brand"></span></span>
+              <span><strong>Quy cách:</strong> <span id="modal-product-spec"></span></span>
+              <span><strong>Tồn kho sẵn có:</strong> <span id="modal-product-stock" class="text-success" style="font-weight: 700;"></span></span>
+            </div>
+            <div style="margin-bottom: 12px;">
+              <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Đơn vị tính:</label>
+              <div class="unit-buttons" id="modal-unit-options"></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <div>
+                <span id="modal-price" style="font-size: 22px; font-weight: 800; color: var(--primary);"></span>
+                <span id="modal-unit-label" style="font-size: 13px; color: var(--text-muted);"></span>
+              </div>
+              <div class="qty-control" style="height: 34px;">
+                <button type="button" onclick="updateModalQty(-1)" style="width: 32px; font-size: 16px;">-</button>
+                <input type="text" id="modal-qty-input" value="1" readonly style="width: 40px; text-align: center; border: none; font-weight: 700; background: transparent;">
+                <button type="button" onclick="updateModalQty(1)" style="width: 32px; font-size: 16px;">+</button>
+              </div>
+            </div>
+            <button class="btn btn-add-cart" onclick="addModalItemToCart()" style="width: 100%; padding: 12px; font-size: 14px;">
+              <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+        <div class="detail-tabs-nav">
+          <button class="detail-tab-btn active" data-tab="indication" onclick="switchDetailTab('indication')">Chỉ định</button>
+          <button class="detail-tab-btn" data-tab="dosage" onclick="switchDetailTab('dosage')">Liều dùng</button>
+          <button class="detail-tab-btn" data-tab="contraindication" onclick="switchDetailTab('contraindication')">Chống chỉ định</button>
+          <button class="detail-tab-btn" data-tab="warning" onclick="switchDetailTab('warning')">Cảnh báo</button>
+          <button class="detail-tab-btn" data-tab="storage" onclick="switchDetailTab('storage')">Bảo quản</button>
+        </div>
+        <div class="detail-tab-pane active" id="pane-indication"><p id="tab-indication"></p></div>
+        <div class="detail-tab-pane" id="pane-dosage"><p id="tab-dosage"></p></div>
+        <div class="detail-tab-pane" id="pane-contraindication"><p id="tab-contraindication" class="text-danger"></p></div>
+        <div class="detail-tab-pane" id="pane-warning"><p id="tab-warning"></p></div>
+        <div class="detail-tab-pane" id="pane-storage"><p id="tab-storage"></p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+</body>
+</html>

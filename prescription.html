@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gửi Đơn Thuốc Bác Sĩ (Rx) - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="shop.html" class="btn" style="background: #F1F5F9; color: #334155; font-weight: 700; padding: 9px 16px; border-radius: var(--radius-md);">
+          <i class="fa-solid fa-store"></i> Đến Cửa Hàng
+        </a>
+        <a href="cart.html" class="cart-trigger-btn">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item active"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current">Gửi Đơn Thuốc Bác Sĩ (Rx)</span>
+    </div>
+  </div>
+
+  <!-- Prescription Main Section -->
+  <section class="container" style="max-width: 900px; padding-bottom: 60px;">
+    <!-- 3 Steps Process Infographic -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px;">
+      <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; text-align: center; box-shadow: var(--shadow-sm);">
+        <div style="width: 44px; height: 44px; background: #FEF3C7; color: #D97706; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px;">
+          1
+        </div>
+        <h4 style="font-size: 14px; font-weight: 800; color: #0F172A; margin-bottom: 4px;">Chụp & Tải Đơn Thuốc</h4>
+        <p style="font-size: 12px; color: var(--text-muted);">Tải ảnh chụp đơn thuốc rõ ràng từ bệnh viện hoặc phòng khám.</p>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; text-align: center; box-shadow: var(--shadow-sm);">
+        <div style="width: 44px; height: 44px; background: #E0F2FE; color: #0284C7; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px;">
+          2
+        </div>
+        <h4 style="font-size: 14px; font-weight: 800; color: #0F172A; margin-bottom: 4px;">Dược Sĩ Tư Vấn & Báo Giá</h4>
+        <p style="font-size: 12px; color: var(--text-muted);">Dược sĩ kiểm tra liều dùng, tương tác thuốc và gọi báo giá trong 15 phút.</p>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; text-align: center; box-shadow: var(--shadow-sm);">
+        <div style="width: 44px; height: 44px; background: #D1FAE5; color: #059669; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px;">
+          3
+        </div>
+        <h4 style="font-size: 14px; font-weight: 800; color: #0F172A; margin-bottom: 4px;">Giao Hỏa Tốc 2 Giờ</h4>
+        <p style="font-size: 12px; color: var(--text-muted);">Đóng gói chuẩn GPP kèm hướng dẫn sử dụng chi tiết tận tay bạn.</p>
+      </div>
+    </div>
+
+    <!-- Upload Form Card -->
+    <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-sm); margin-bottom: 30px;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">
+        <i class="fa-solid fa-file-prescription text-warning"></i> Điền Thông Tin Đơn Thuốc
+      </h2>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+        Hệ thống hỗ trợ gửi đơn thuốc điện tử hoặc ảnh chụp giấy khám bệnh. Thông tin của bạn được bảo mật tuyệt đối theo chuẩn Bộ Y Tế.
+      </p>
+
+      <!-- Fast samples selection -->
+      <div class="rx-sample-selection">
+        <span style="font-size: 12px; font-weight: 700; color: #0F172A;">
+          <i class="fa-solid fa-vial-virus text-primary"></i> Dữ liệu mẫu kiểm thử nhanh:
+        </span>
+        <div class="sample-rx-cards">
+          <button type="button" class="sample-rx-btn" onclick="selectSamplePrescription('sample1')">
+            <strong>Toa 1: Viêm Xoang Cấp</strong><br>
+            <span style="color: var(--text-muted);">BV Tai Mũi Họng • Kháng sinh Augmentin 1g</span>
+          </button>
+          <button type="button" class="sample-rx-btn" onclick="selectSamplePrescription('sample2')">
+            <strong>Toa 2: Viêm Phế Quản Nhi Đồng</strong><br>
+            <span style="color: var(--text-muted);">BV Nhi Đồng 1 • Siro ho & Men vi sinh</span>
+          </button>
+        </div>
+      </div>
+
+      <form onsubmit="submitDedicatedPrescription(event)">
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label>Tải ảnh chụp đơn thuốc của bạn: *</label>
+          <input type="file" id="rx-file-input" accept="image/*" onchange="handlePrescriptionFileChange(event)" class="form-control" style="padding: 10px;">
+          <img id="rx-image-preview" src="" alt="Toa thuốc preview" style="max-height: 180px; border-radius: 8px; margin-top: 12px; display: none; border: 1px solid var(--border-color);">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label>Họ và tên bệnh nhân: *</label>
+            <input type="text" id="rx-patient-name" required placeholder="VD: Nguyễn Văn An" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại liên hệ: *</label>
+            <input type="tel" id="rx-patient-phone" required placeholder="VD: 0912345678" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ghi chú cho Dược sĩ (Triệu chứng, tiền sử dị ứng thuốc, yêu cầu thuốc ngoại/nội...):</label>
+          <textarea id="rx-patient-note" rows="3" placeholder="VD: Bé 20kg, từng dị ứng với kháng sinh Cephalosporin, nhờ dược sĩ kiểm tra kỹ liều..." class="form-control"></textarea>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+          <input type="checkbox" id="rx-callback-checkbox" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
+          <label for="rx-callback-checkbox" style="font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 0;">
+            Yêu cầu Dược sĩ gọi lại tư vấn và báo giá trong 15 phút
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-checkout" style="width: 100%; padding: 14px; font-size: 15px; margin-top: 10px;">
+          <i class="fa-solid fa-paper-plane"></i> Gửi Đơn Thuốc Cho Dược Sĩ Ngay
+        </button>
+      </form>
+    </div>
+
+    <!-- Uploaded Prescriptions History -->
+    <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm);">
+      <h3 style="font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 14px;">
+        <i class="fa-solid fa-clock-rotate-left text-primary"></i> Lịch Sử Toa Thuốc Đã Gửi Của Bạn
+      </h3>
+      <div id="rx-history-list"></div>
+    </div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+      renderPrescriptionHistory();
+    });
+
+    function renderPrescriptionHistory() {
+      const container = document.getElementById('rx-history-list');
+      if (!container) return;
+      const rxs = StorageManager.getPrescriptions();
+
+      if (rxs.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); font-size: 13px;">Chưa có đơn thuốc nào được gửi.</p>';
+        return;
+      }
+
+      container.innerHTML = rxs.map(rx => `
+        <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <div>
+            <span class="badge ${rx.status === 'approved' ? 'badge-success' : 'badge-warning'}">
+              ${rx.status === 'approved' ? 'Đã duyệt báo giá' : 'Đang chờ Dược sĩ kiểm tra'}
+            </span>
+            <h4 style="font-size: 15px; font-weight: 800; color: #0F172A; margin: 4px 0 2px 0;">Mã phiếu: ${rx.code}</h4>
+            <p style="font-size: 13px; color: #334155;"><strong>Bệnh nhân:</strong> ${rx.patientName} • ĐT: ${rx.phone}</p>
+            <p style="font-size: 12px; color: var(--text-muted);">${rx.note}</p>
+            <p style="font-size: 12px; color: var(--primary); font-weight: 600; margin-top: 4px;"><i class="fa-solid fa-user-doctor"></i> ${rx.pharmacistNotes}</p>
+          </div>
+          <img src="${rx.prescriptionImageUrl}" alt="Toa thuốc" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color);">
+        </div>
+      `).join('');
+    }
+
+    function submitDedicatedPrescription(event) {
+      event.preventDefault();
+      const name = document.getElementById('rx-patient-name').value.trim();
+      const phone = document.getElementById('rx-patient-phone').value.trim();
+      const note = document.getElementById('rx-patient-note').value.trim();
+      const callback = document.getElementById('rx-callback-checkbox').checked;
+      const previewImg = document.getElementById('rx-image-preview');
+
+      const vnPhoneRegex = /^(03|05|07|08|09)\d{8}$/;
+      if (!vnPhoneRegex.test(phone.replace(/\D/g, ''))) {
+        showToast('Số điện thoại không hợp lệ', 'Vui lòng nhập số điện thoại Việt Nam 10 chữ số (03/05/07/08/09...)', 'error');
+        return;
+      }
+
+      const rxCode = `RX-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      const newRx = {
+        code: rxCode,
+        createdAt: new Date().toISOString(),
+        patientName: name,
+        phone: phone,
+        prescriptionImageUrl: previewImg.src || 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=400',
+        note: note,
+        requestCallback: callback,
+        status: 'pending',
+        pharmacistNotes: 'Dược sĩ trực đang tiếp nhận và kiểm tra tương tác thuốc...'
+      };
+
+      StorageManager.savePrescription(newRx);
+      playInteractionSound('success');
+      renderPrescriptionHistory();
+
+      alert(
+        `✅ TIẾP NHẬN ĐƠN THUỐC THÀNH CÔNG!\n\n` +
+        `• Mã phiếu tư vấn: ${rxCode}\n` +
+        `• Bệnh nhân: ${name} (${phone})\n` +
+        `• Dược sĩ đại học sẽ gọi điện kiểm tra liều dùng và báo giá chi tiết trong vòng 15 phút.`
+      );
+      showToast('Đã gửi đơn thuốc', `Mã phiếu: ${rxCode}`, 'success');
+    }
+  </script>
+</body>
+</html>

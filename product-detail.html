@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Dược Phẩm & Dược Lý - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-search-wrap">
+        <div class="search-box">
+          <input type="text" id="main-search-input" placeholder="Tìm theo tên thuốc, hoạt chất, triệu chứng..." autocomplete="off">
+          <button type="button" onclick="window.location.href='shop.html'">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Tìm thuốc</span>
+          </button>
+        </div>
+        <div class="search-suggestions-dropdown" id="search-suggestions"></div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+        <button class="btn-track-order" onclick="window.location.href='order-tracking.html'">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Tra cứu đơn</span>
+        </button>
+        <button class="cart-trigger-btn" onclick="window.location.href='cart.html'">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item active"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <a href="shop.html">Cửa hàng Dược phẩm</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current" id="detail-breadcrumb-name">Chi tiết sản phẩm</span>
+    </div>
+  </div>
+
+  <!-- Product Detail Section -->
+  <section class="container" style="padding-bottom: 60px;">
+    <div class="product-detail-layout">
+      <!-- Left: Image Gallery -->
+      <div>
+        <img id="detail-img-main" src="" alt="" class="gallery-main-img">
+        <div style="display: flex; gap: 10px; margin-top: 12px;" id="detail-thumbs"></div>
+      </div>
+
+      <!-- Right: Product Purchase Options & Metadata -->
+      <div class="product-detail-info">
+        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+          <span class="badge" id="detail-badge">OTC</span>
+          <span class="badge badge-primary" id="detail-brand-badge"></span>
+          <span style="font-size: 12px; color: var(--text-muted);">SĐK: <strong id="detail-reg"></strong></span>
+        </div>
+
+        <h1 id="detail-name" style="font-size: 24px; font-weight: 800; color: #0F172A; margin-bottom: 6px; line-height: 1.3;"></h1>
+        <p id="detail-ingredient" style="font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 10px;"></p>
+
+        <!-- Rating & reviews -->
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 14px;">
+          <div style="color: #F59E0B;">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+          </div>
+          <strong id="detail-rating" style="color: #0F172A;">4.9</strong>
+          <span style="color: var(--text-muted);" id="detail-reviews-count">(380 đánh giá từ khách hàng)</span>
+        </div>
+
+        <!-- Rx Prescription warning banner if Rx -->
+        <div class="rx-warning-banner" id="detail-rx-warning" style="display: none;">
+          <i class="fa-solid fa-file-prescription" style="font-size: 24px; color: #DC2626;"></i>
+          <div>
+            <strong style="color: #991B1B;">Thuốc kê đơn (Rx) - Cần Dược Sĩ Tư Vấn!</strong><br>
+            Sản phẩm chỉ được bán khi có chỉ định và đơn thuốc của Bác sĩ. Vui lòng chụp ảnh đơn thuốc để Dược sĩ liên hệ xác nhận trước khi giao hàng.
+          </div>
+        </div>
+
+        <!-- Multi-Unit Selector -->
+        <div class="unit-selector-wrap" style="padding: 12px; margin-bottom: 16px;">
+          <label class="unit-label" style="font-size: 12px; margin-bottom: 8px;">
+            1. Chọn Đơn Vị Tính Bạn Muốn Mua:
+          </label>
+          <div class="unit-buttons" id="detail-unit-buttons"></div>
+        </div>
+
+        <!-- Dynamic Price and Stock -->
+        <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px;">
+            <div>
+              <span id="detail-price" style="font-size: 28px; font-weight: 800; color: var(--primary);"></span>
+              <span id="detail-unit-label" style="font-size: 14px; color: var(--text-muted); font-weight: 600;"></span>
+            </div>
+            <span id="detail-orig-price" style="font-size: 16px; color: #94A3B8; text-decoration: line-through;"></span>
+          </div>
+
+          <div style="font-size: 13px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between;">
+            <span><i class="fa-solid fa-box-open text-primary"></i> Quy cách: <strong id="detail-spec"></strong></span>
+            <span class="text-success"><i class="fa-solid fa-circle-check"></i> Còn hàng: <strong id="detail-stock"></strong></span>
+          </div>
+        </div>
+
+        <!-- Quantity & Action Buttons -->
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px;">
+          <div class="qty-control" style="height: 48px; border-radius: var(--radius-md);">
+            <button type="button" onclick="changeDetailPageQty(-1)" style="width: 44px; font-size: 18px;">-</button>
+            <input type="text" id="detail-qty-input" value="1" readonly style="width: 50px; text-align: center; border: none; font-size: 16px; font-weight: 800; background: transparent;">
+            <button type="button" onclick="changeDetailPageQty(1)" style="width: 44px; font-size: 18px;">+</button>
+          </div>
+
+          <button class="btn btn-add-cart" onclick="addCurrentDetailPageItem()" style="flex: 1; height: 48px; font-size: 15px; border-radius: var(--radius-md);">
+            <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+          </button>
+
+          <button class="btn" onclick="buyNowCurrentDetailPageItem()" style="background: var(--accent-orange); color: #fff; height: 48px; font-size: 15px; font-weight: 800; padding: 0 20px; border-radius: var(--radius-md);">
+            Mua ngay
+          </button>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges-row">
+          <div class="trust-badge-item">
+            <i class="fa-solid fa-medal"></i>
+            <span>100% Chính hãng GPP</span>
+          </div>
+          <div class="trust-badge-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Giao hỏa tốc 2 giờ</span>
+          </div>
+          <div class="trust-badge-item">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Đổi trả trong 30 ngày</span>
+          </div>
+          <div class="trust-badge-item">
+            <i class="fa-solid fa-user-doctor"></i>
+            <span>Dược sĩ ĐH tư vấn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pharmacology Detail Tabs -->
+    <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm); margin-bottom: 30px;">
+      <h3 style="font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-book-medical text-primary"></i> Hồ Sơ Dược Lý Chuẩn Y Khoa
+      </h3>
+
+      <div class="detail-tabs-nav">
+        <button class="detail-tab-btn active" data-tab="tab-ind" onclick="switchDetailTab('tab-ind')">Chỉ định & Công dụng</button>
+        <button class="detail-tab-btn" data-tab="tab-dos" onclick="switchDetailTab('tab-dos')">Liều dùng & Cách dùng</button>
+        <button class="detail-tab-btn" data-tab="tab-con" onclick="switchDetailTab('tab-con')">Chống chỉ định</button>
+        <button class="detail-tab-btn" data-tab="tab-war" onclick="switchDetailTab('tab-war')">Cảnh báo & Tác dụng phụ</button>
+        <button class="detail-tab-btn" data-tab="tab-sto" onclick="switchDetailTab('tab-sto')">Bảo quản & Hạn dùng</button>
+      </div>
+
+      <div class="detail-tab-pane active" id="pane-tab-ind">
+        <h4 style="font-weight: 700; margin-bottom: 6px;">Chỉ định điều trị:</h4>
+        <p id="pharma-indication" style="line-height: 1.7;"></p>
+      </div>
+
+      <div class="detail-tab-pane" id="pane-tab-dos">
+        <h4 style="font-weight: 700; margin-bottom: 6px;">Hướng dẫn liều dùng & Đường dùng:</h4>
+        <p id="pharma-dosage" style="line-height: 1.7;"></p>
+      </div>
+
+      <div class="detail-tab-pane" id="pane-tab-con">
+        <h4 style="font-weight: 700; margin-bottom: 6px; color: #DC2626;">Chống chỉ định tuyệt đối:</h4>
+        <p id="pharma-contraindication" class="text-danger" style="line-height: 1.7; font-weight: 600;"></p>
+      </div>
+
+      <div class="detail-tab-pane" id="pane-tab-war">
+        <h4 style="font-weight: 700; margin-bottom: 6px;">Cảnh báo an toàn & Thận trọng khi dùng:</h4>
+        <p id="pharma-warning" style="line-height: 1.7;"></p>
+      </div>
+
+      <div class="detail-tab-pane" id="pane-tab-sto">
+        <h4 style="font-weight: 700; margin-bottom: 6px;">Tiêu chuẩn bảo quản Thực hành tốt (GPP):</h4>
+        <p id="pharma-storage" style="line-height: 1.7;"></p>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div>
+      <h3 style="font-size: 20px; font-weight: 800; color: #0F172A; margin-bottom: 18px;">
+        <i class="fa-solid fa-shapes text-primary"></i> Sản Phẩm Cùng Nhóm Điều Trị
+      </h3>
+      <div class="product-grid" id="related-products-grid"></div>
+    </div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+  <script>
+    // Product Detail Page Logic
+    let currentDetailProduct = null;
+    let currentDetailSelectedUnit = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodId = urlParams.get('id') || 'prod-01';
+      currentDetailProduct = PRODUCTS.find(p => p.id === prodId) || PRODUCTS[0];
+
+      // Populate Data
+      document.title = `${currentDetailProduct.name} - MediPharm GPP`;
+      document.getElementById('detail-breadcrumb-name').textContent = currentDetailProduct.name;
+      document.getElementById('detail-name').textContent = currentDetailProduct.name;
+      document.getElementById('detail-ingredient').textContent = `Hoạt chất: ${currentDetailProduct.activeIngredient}`;
+      document.getElementById('detail-reg').textContent = currentDetailProduct.regNumber;
+      document.getElementById('detail-brand-badge').textContent = currentDetailProduct.origin.split('(')[0];
+      document.getElementById('detail-spec').textContent = currentDetailProduct.packageSpec;
+      document.getElementById('detail-rating').textContent = currentDetailProduct.rating;
+      document.getElementById('detail-reviews-count').textContent = `(${currentDetailProduct.reviewsCount} đánh giá)`;
+
+      // Image
+      document.getElementById('detail-img-main').src = currentDetailProduct.image;
+      document.getElementById('detail-thumbs').innerHTML = `
+        <img src="${currentDetailProduct.image}" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 2px solid var(--primary); cursor: pointer;">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=200" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color); cursor: pointer;">
+      `;
+
+      // Classification badge
+      const badgeEl = document.getElementById('detail-badge');
+      const isRx = currentDetailProduct.classification === 'rx';
+      badgeEl.className = `badge ${isRx ? 'badge-rx' : currentDetailProduct.classification === 'device' ? 'badge-device' : 'badge-otc'}`;
+      badgeEl.textContent = isRx ? 'Thuốc kê đơn (Rx)' : currentDetailProduct.classification === 'device' ? 'Thiết bị y tế' : 'Thuốc OTC';
+
+      if (isRx) {
+        document.getElementById('detail-rx-warning').style.display = 'flex';
+      }
+
+      // Default unit
+      currentDetailSelectedUnit = currentDetailProduct.defaultUnit || currentDetailProduct.units[0].unit;
+      renderDetailUnits();
+      updateDetailPriceAndStock();
+
+      // Pharmacology tabs
+      document.getElementById('pharma-indication').textContent = currentDetailProduct.pharmacology.indication;
+      document.getElementById('pharma-dosage').textContent = currentDetailProduct.pharmacology.dosage;
+      document.getElementById('pharma-contraindication').textContent = currentDetailProduct.pharmacology.contraindication;
+      document.getElementById('pharma-warning').textContent = currentDetailProduct.pharmacology.warning;
+      document.getElementById('pharma-storage').textContent = currentDetailProduct.pharmacology.storage;
+
+      // Render Related Products
+      renderRelatedProducts();
+    });
+
+    function renderDetailUnits() {
+      const container = document.getElementById('detail-unit-buttons');
+      container.innerHTML = currentDetailProduct.units.map(u => `
+        <button 
+          type="button" 
+          class="unit-btn ${u.unit === currentDetailSelectedUnit ? 'active' : ''}" 
+          style="padding: 8px 16px; font-size: 13px;"
+          onclick="selectDetailPageUnit('${u.unit}')"
+        >
+          ${u.unit} (${formatVND(u.price)})
+        </button>
+      `).join('');
+    }
+
+    function selectDetailPageUnit(unitName) {
+      currentDetailSelectedUnit = unitName;
+      renderDetailUnits();
+      updateDetailPriceAndStock();
+    }
+
+    function updateDetailPriceAndStock() {
+      const unitObj = currentDetailProduct.units.find(u => u.unit === currentDetailSelectedUnit) || currentDetailProduct.units[0];
+      document.getElementById('detail-price').textContent = formatVND(unitObj.price);
+      document.getElementById('detail-unit-label').textContent = `/${currentDetailSelectedUnit}`;
+      document.getElementById('detail-stock').textContent = `${currentDetailProduct.inStock} ${currentDetailSelectedUnit}`;
+
+      const origEl = document.getElementById('detail-orig-price');
+      if (unitObj.originalPrice > unitObj.price) {
+        origEl.textContent = formatVND(unitObj.originalPrice);
+        origEl.style.display = 'inline';
+      } else {
+        origEl.style.display = 'none';
+      }
+    }
+
+    function changeDetailPageQty(delta) {
+      const input = document.getElementById('detail-qty-input');
+      let val = parseInt(input.value) || 1;
+      val = Math.max(1, val + delta);
+      input.value = val;
+    }
+
+    function addCurrentDetailPageItem() {
+      const qty = parseInt(document.getElementById('detail-qty-input').value) || 1;
+      if (currentDetailProduct.classification === 'rx') {
+        const confirmRx = confirm(
+          `[THUỐC KÊ ĐƠN (Rx)]\n"${currentDetailProduct.name}" cần có đơn thuốc của bác sĩ.\n\n` +
+          `• Bấm OK để chuyển đến trang Gửi Đơn Thuốc.\n` +
+          `• Bấm Cancel để thêm vào giỏ và gửi đơn thuốc khi thanh toán.`
+        );
+        if (confirmRx) {
+          window.location.href = 'prescription.html';
+          return;
+        }
+      }
+      Cart.addItem(currentDetailProduct.id, currentDetailSelectedUnit, qty);
+    }
+
+    function buyNowCurrentDetailPageItem() {
+      const qty = parseInt(document.getElementById('detail-qty-input').value) || 1;
+      Cart.addItem(currentDetailProduct.id, currentDetailSelectedUnit, qty);
+      window.location.href = 'checkout.html';
+    }
+
+    function renderRelatedProducts() {
+      const related = PRODUCTS.filter(p => p.id !== currentDetailProduct.id && (p.category === currentDetailProduct.category || p.classification === currentDetailProduct.classification)).slice(0, 4);
+      const container = document.getElementById('related-products-grid');
+      container.innerHTML = related.map(p => `
+        <div class="product-card" onclick="window.location.href='product-detail.html?id=${p.id}'" style="cursor: pointer;">
+          <div class="product-img-wrap">
+            <img src="${p.image}" alt="${p.name}" class="product-img">
+          </div>
+          <div class="product-body">
+            <h4 class="product-title">${p.name}</h4>
+            <div class="product-ingredient">${p.activeIngredient}</div>
+            <div class="price-row" style="margin-top: 10px;">
+              <span class="current-price">${formatVND(p.units[0].price)}</span>
+              <span class="price-unit">/${p.units[0].unit}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng Của Bạn - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-search-wrap">
+        <div class="search-box">
+          <input type="text" id="main-search-input" placeholder="Tìm theo tên thuốc, hoạt chất..." autocomplete="off">
+          <button type="button" onclick="window.location.href='shop.html'">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Tìm thuốc</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+        <button class="btn-track-order" onclick="window.location.href='order-tracking.html'">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Tra cứu đơn</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current">Giỏ Hàng Của Bạn</span>
+    </div>
+  </div>
+
+  <!-- Cart Page Content -->
+  <section class="container" style="padding-bottom: 60px;">
+    <!-- Rx Safety Warning if cart contains Rx drugs -->
+    <div class="cart-rx-alert" id="cart-page-rx-alert" style="display: none; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 13px;">
+      <i class="fa-solid fa-shield-halved" style="font-size: 20px; color: #D97706;"></i>
+      <div>
+        <strong>Giỏ hàng có thuốc kê đơn (Rx)!</strong><br>
+        Theo quy định của Bộ Y Tế, đơn hàng có thuốc kê đơn sẽ được Dược sĩ chuyên môn gọi điện xác nhận đơn thuốc của bác sĩ trước khi đóng gói và giao hàng.
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="cart-page-empty" class="empty-state" style="display: none;">
+      <i class="fa-solid fa-basket-shopping"></i>
+      <h3>Giỏ hàng của bạn đang trống</h3>
+      <p>Hãy khám phá thêm các loại thuốc không kê đơn, thực phẩm chức năng và vật tư y tế gia đình nhé.</p>
+      <button class="btn btn-hero-primary" onclick="window.location.href='shop.html'" style="background: var(--primary); color: #fff;">
+        <i class="fa-solid fa-bag-shopping"></i> Đến Cửa Hàng Mua Sắm
+      </button>
+    </div>
+
+    <!-- Cart Layout -->
+    <div class="cart-page-layout" id="cart-page-content">
+      <!-- Left: Cart Table -->
+      <div class="cart-table-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 18px; font-weight: 800; color: #0F172A;">
+            Danh Sách Sản Phẩm Trong Giỏ
+          </h3>
+          <button onclick="Cart.clear(); showToast('Đã dọn sạch giỏ', '', 'info');" style="background: transparent; color: var(--accent-red); font-size: 12px; font-weight: 700;">
+            <i class="fa-solid fa-trash-can"></i> Xóa tất cả
+          </button>
+        </div>
+
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Đơn vị tính</th>
+              <th>Đơn giá</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-page-table-body"></tbody>
+        </table>
+
+        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <a href="shop.html" class="btn" style="background: #F1F5F9; color: #334155; font-weight: 700; padding: 10px 18px; border-radius: var(--radius-sm);">
+            <i class="fa-solid fa-arrow-left"></i> Tiếp tục chọn mua thuốc
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Cart Summary -->
+      <div class="cart-summary-card">
+        <h3 style="font-size: 17px; font-weight: 800; color: #0F172A; margin-bottom: 16px;">
+          Tóm Tắt Đơn Hàng
+        </h3>
+
+        <!-- Voucher Input -->
+        <div class="voucher-input-row" style="margin-bottom: 16px;">
+          <input type="text" id="cart-page-voucher-input" placeholder="Mã voucher (TUTHOC50, FREESHIP)...">
+          <button type="button" onclick="applyPageVoucher()">Áp dụng</button>
+        </div>
+
+        <div class="bill-rows" style="font-size: 14px;">
+          <div class="bill-row">
+            <span>Tạm tính thuốc & vật tư:</span>
+            <strong id="cart-page-subtotal" style="color: #0F172A;">0 ₫</strong>
+          </div>
+          <div class="bill-row">
+            <span>Giảm giá khuyến mãi:</span>
+            <strong class="text-danger" id="cart-page-discount">0 ₫</strong>
+          </div>
+          <div class="bill-row">
+            <span>Phí giao hàng:</span>
+            <strong id="cart-page-shipping" style="color: #0F172A;">0 ₫</strong>
+          </div>
+          <div class="bill-row total-row" style="font-size: 18px;">
+            <span>Tổng thanh toán:</span>
+            <strong id="cart-page-grand-total" style="color: var(--primary);">0 ₫</strong>
+          </div>
+        </div>
+
+        <button class="btn-checkout" onclick="window.location.href='checkout.html'" style="margin-top: 16px;">
+          <span>Tiến Hành Đặt Hàng</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div style="margin-top: 16px; font-size: 12px; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border-color); padding-top: 12px;">
+          <i class="fa-solid fa-circle-check text-success"></i> Miễn phí vận chuyển hỏa tốc 2 giờ cho đơn từ 300.000₫.<br>
+          <i class="fa-solid fa-certificate text-primary"></i> 100% Sản phẩm được bảo quản tiêu chuẩn GPP.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+    });
+
+    function applyPageVoucher() {
+      const input = document.getElementById('cart-page-voucher-input');
+      if (!input) return;
+      const res = Cart.applyVoucher(input.value);
+      if (res.success) {
+        showToast('Áp mã thành công!', res.message, 'success');
+      } else {
+        showToast('Lỗi áp mã', res.message, 'error');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra Cứu Đơn Hàng & Toa Thuốc - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+        <button class="cart-trigger-btn" onclick="window.location.href='cart.html'">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item active"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current">Tra Cứu Tiến Độ Đơn Hàng & Toa Thuốc</span>
+    </div>
+  </div>
+
+  <!-- Tracking Content -->
+  <section class="container" style="max-width: 860px; padding-bottom: 60px;">
+    <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm); margin-bottom: 24px;">
+      <h2 style="font-size: 22px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">
+        <i class="fa-solid fa-magnifying-glass text-primary"></i> Tra Cứu Thông Tin Đơn Hàng
+      </h2>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Nhập Số điện thoại đặt hàng hoặc Mã đơn hàng (Ví dụ: <strong>0912345678</strong> hoặc <strong>DH-2026-8492</strong>) để xem hành trình đơn thuốc.
+      </p>
+
+      <div style="display: flex; gap: 10px;">
+        <input 
+          type="text" 
+          id="tracking-search-input" 
+          placeholder="Nhập Số điện thoại hoặc Mã đơn hàng (DH-2026-XXXX)..." 
+          class="form-control"
+          style="font-size: 15px; padding: 12px 16px;"
+          onkeyup="if(event.key === 'Enter') searchTrackingOrders()"
+        >
+        <button class="btn btn-add-cart" onclick="searchTrackingOrders()" style="width: auto; padding: 0 24px; font-size: 14px;">
+          <i class="fa-solid fa-magnifying-glass"></i> Tra cứu ngay
+        </button>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px;">
+        <span style="color: var(--text-muted);">Mẫu thử nghiệm:</span>
+        <button type="button" class="badge badge-info" style="border: none; cursor: pointer;" onclick="document.getElementById('tracking-search-input').value='0912345678'; searchTrackingOrders();">
+          SĐT: 0912345678 (Đơn hỏa tốc)
+        </button>
+        <button type="button" class="badge badge-warning" style="border: none; cursor: pointer;" onclick="document.getElementById('tracking-search-input').value='DH-2026-6127'; searchTrackingOrders();">
+          Mã: DH-2026-6127 (Đơn có thuốc Rx)
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="tracking-results-container"></div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+      renderOrderTrackingList();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hệ Thống Nhà Thuốc & Liên Hệ Dược Sĩ - MediPharm GPP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc & Vật tư chính hãng đạt chuẩn <strong>GPP</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Giao nhanh nội thành trong <strong>2 giờ</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ tư vấn 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+        <button class="cart-trigger-btn" onclick="window.location.href='cart.html'">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Mega Bar -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item active"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+      <span class="current">Hệ Thống Nhà Thuốc GPP & Liên Hệ</span>
+    </div>
+  </div>
+
+  <!-- Branches and Contact Section -->
+  <section class="container" style="padding-bottom: 60px;">
+    <div style="text-align: center; max-width: 650px; margin: 0 auto 30px auto;">
+      <h2 style="font-size: 24px; font-weight: 800; color: #0F172A; margin-bottom: 8px;">
+        Hệ Thống Nhà Thuốc Chuẩn GPP Toàn Quốc
+      </h2>
+      <p style="font-size: 14px; color: var(--text-muted);">
+        Đến trực tiếp chi nhánh gần nhất để được đo huyết áp, kiểm tra đường huyết miễn phí và nhận tư vấn sử dụng thuốc từ Dược sĩ đại học.
+      </p>
+    </div>
+
+    <!-- Branch Cards Grid -->
+    <div class="branch-grid" style="margin-bottom: 36px;">
+      <div class="branch-card">
+        <span class="badge badge-success" style="margin-bottom: 6px; display: inline-block;">Trụ Sở Chính - 24/7</span>
+        <h3 style="font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">MediPharm Tân Cảng (Bình Thạnh)</h3>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-location-dot text-primary"></i> 107 Tân Cảng, Phường 22, Quận Bình Thạnh, TP.HCM</p>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-phone text-primary"></i> Hotline: <strong>(028) 7300 8866</strong></p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;"><i class="fa-solid fa-clock text-primary"></i> 06:30 – 22:30 (Mở cửa tất cả các ngày trong tuần)</p>
+        <div style="font-size: 11px; background: #F8FAFC; padding: 8px; border-radius: 6px;">
+          <strong>Dược sĩ phụ trách:</strong> DS.CKI Nguyễn Thị Mai Lan<br>
+          <strong>Dịch vụ:</strong> Đo huyết áp miễn phí • Tư vấn đơn thuốc • Giao 2h
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <span class="badge badge-primary" style="margin-bottom: 6px; display: inline-block;">Chi Nhánh Phú Mỹ Hưng</span>
+        <h3 style="font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">MediPharm Crescent Plaza (Quận 7)</h3>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-location-dot text-primary"></i> Lầu 1, Crescent Plaza, 105 Tôn Dật Tiên, Quận 7, TP.HCM</p>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-phone text-primary"></i> Hotline: <strong>(028) 7300 8899</strong></p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;"><i class="fa-solid fa-clock text-primary"></i> 07:00 – 22:00 (Thứ 2 – Chủ Nhật)</p>
+        <div style="font-size: 11px; background: #F8FAFC; padding: 8px; border-radius: 6px;">
+          <strong>Dược sĩ phụ trách:</strong> ThS.DS Trần Minh Trí<br>
+          <strong>Dịch vụ:</strong> Thực phẩm chức năng nhập khẩu • Bảo lãnh bảo hiểm
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <span class="badge badge-danger" style="margin-bottom: 6px; display: inline-block;">Trực Đêm 24/24</span>
+        <h3 style="font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">MediPharm Hai Bà Trưng (Quận 1)</h3>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-location-dot text-primary"></i> 88 Hai Bà Trưng, Phường Bến Nghé, Quận 1, TP.HCM</p>
+        <p style="font-size: 13px; color: #334155; margin-bottom: 6px;"><i class="fa-solid fa-phone text-primary"></i> Hotline: <strong>(028) 7300 8822</strong></p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;"><i class="fa-solid fa-clock text-primary"></i> Mở cửa 24/24 xuyên đêm</p>
+        <div style="font-size: 11px; background: #F8FAFC; padding: 8px; border-radius: 6px;">
+          <strong>Dược sĩ phụ trách:</strong> DS. Lê Thị Hồng Vân<br>
+          <strong>Dịch vụ:</strong> Thuốc cấp cứu • Thuốc đặc trị chuyên khoa • Thiết bị y tế
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact & Consultation Form -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-sm);">
+      <div>
+        <h3 style="font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 12px;">
+          <i class="fa-solid fa-comment-medical text-primary"></i> Gửi Câu Hỏi Cho Dược Sĩ Trưởng
+        </h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">
+          Bạn đang có thắc mắc về cách phối hợp thuốc, tác dụng phụ hoặc chế độ dinh dưỡng? Đội ngũ Dược sĩ MediPharm sẵn sàng tư vấn miễn phí.
+        </p>
+
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label>Họ và tên của bạn: *</label>
+            <input type="text" id="contact-name" required placeholder="Nguyễn Văn A" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại nhận tư vấn: *</label>
+            <input type="tel" id="contact-phone" required placeholder="0912345678" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Nội dung cần Dược sĩ tư vấn: *</label>
+            <textarea id="contact-msg" rows="3" required placeholder="Mô tả triệu chứng hoặc loại thuốc bạn đang sử dụng..." class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-add-cart" style="width: 100%; padding: 12px; font-size: 14px;">
+            <i class="fa-solid fa-paper-plane"></i> Gửi Thắc Mắc Đến Dược Sĩ
+          </button>
+        </form>
+      </div>
+
+      <!-- FAQ Summary Box -->
+      <div style="background: #F8FAFC; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 14px;">
+          <i class="fa-solid fa-circle-question text-primary"></i> Câu Hỏi Thường Gặp
+        </h4>
+        <div style="font-size: 13px; line-height: 1.6; display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <strong>1. Giao thuốc hỏa tốc 2 giờ hoạt động như thế nào?</strong>
+            <p style="color: var(--text-muted); font-size: 12px;">Đơn hàng trong nội thành sẽ được điều phối từ chi nhánh gần nhất và đóng gói bảo quản nhiệt độ đúng chuẩn.</p>
+          </div>
+          <div>
+            <strong>2. Tôi có thể đổi trả thuốc đã mua không?</strong>
+            <p style="color: var(--text-muted); font-size: 12px;">Thiết bị y tế được bảo hành 1 đổi 1 trong 30 ngày. Thuốc tân dược chỉ đổi trả nếu phát hiện lỗi bao bì từ nhà sản xuất theo quy chế Dược.</p>
+          </div>
+          <div>
+            <strong>3. Mua thuốc kê đơn có bắt buộc có toa không?</strong>
+            <p style="color: var(--text-muted); font-size: 12px;">Có, luật Dược quy định thuốc Rx bắt buộc phải có đơn thuốc của bác sĩ có chữ ký.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-notes-medical text-primary"></i> MediPharm GPP Pharmacy</h4>
+        <p>Hệ thống phân phối dược phẩm & vật tư y tế chuẩn GPP Bộ Y Tế. Hotline tư vấn miễn phí: 1800 6822.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Chuyên Mục</h4>
+        <ul>
+          <li><a href="shop.html">Thuốc không kê đơn (OTC)</a></li>
+          <li><a href="shop.html">Thuốc kê đơn (Rx)</a></li>
+          <li><a href="shop.html">Thực phẩm chức năng</a></li>
+          <li><a href="shop.html">Thiết bị y tế gia đình</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu vận chuyển đơn</a></li>
+          <li><a href="health-tools.html">Kiểm tra chỉ số BMI</a></li>
+          <li><a href="contact.html">Hệ thống chi nhánh</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liên Hệ Dược Sĩ</h4>
+        <p>Tổng đài: <strong>1800 6822</strong></p>
+        <p>Email: cskh@medipharm.vn</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+    });
+
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      const phone = document.getElementById('contact-phone').value;
+
+      playInteractionSound('success');
+      alert(`✅ ĐÃ TIẾP NHẬN CÂU HỎI!\n\nDược sĩ trưởng sẽ liên hệ tư vấn trực tiếp cho bạn (${name} - ${phone}) trong thời gian sớm nhất.`);
+      showToast('Đã gửi thắc mắc', 'Dược sĩ sẽ gọi lại cho bạn sớm', 'success');
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
