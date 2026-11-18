@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
     AppState.cardUnitSelections[p.id] = p.defaultUnit || p.units[0].unit;
   });
 
+  // Initialize Authentication & User Menu
+  initAuth();
+
   // Render initial views
   renderCategoryMegaBar();
   renderSymptomChips();
@@ -1113,4 +1116,544 @@ function applyVoucherFromDrawer() {
   } else {
     showToast('Lỗi áp mã', res.message, 'error');
   }
+}
+
+/* ==========================================================================
+   AUTHENTICATION & USER PROFILE CONTROLLER
+   ========================================================================== */
+
+function initAuth() {
+  ensureAuthModalsInDOM();
+  renderAuthUI();
+  autofillFormsIfLoggedIn();
+
+  window.addEventListener('medipharm:authChange', () => {
+    renderAuthUI();
+    autofillFormsIfLoggedIn();
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('account-dropdown-menu');
+    const trigger = e.target.closest('.btn-account-header') || e.target.closest('.user-top-pill');
+    if (dropdown && !dropdown.contains(e.target) && !trigger) {
+      dropdown.classList.remove('show');
+    }
+  });
+}
+
+function renderAuthUI() {
+  const user = (typeof AuthManager !== 'undefined') ? AuthManager.getCurrentUser() : null;
+  const initials = user ? AuthManager.getInitials(user.fullName) : '';
+  const firstName = user ? user.fullName.split(' ').slice(-1)[0] : '';
+
+  // 1. Top bar slots (if present)
+  const topBarSlots = document.querySelectorAll('.user-auth-top-slot');
+  topBarSlots.forEach(slot => {
+    if (user) {
+      slot.innerHTML = `
+        <div class="user-top-pill" onclick="toggleUserDropdown(event)" title="Tài khoản ${user.fullName}">
+          <span class="user-avatar-dot">${initials}</span>
+          <span class="user-name-text">${user.fullName}</span>
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+      `;
+    } else {
+      slot.innerHTML = `
+        <a href="login.html" onclick="event.preventDefault(); openAuthModal('login');" class="top-bar-auth-btn">
+          <i class="fa-regular fa-user"></i> Đăng nhập / Đăng ký
+        </a>
+      `;
+    }
+  });
+
+  // 2. Header Action Slots (if present)
+  const headerSlots = document.querySelectorAll('.user-auth-header-slot');
+  headerSlots.forEach(slot => {
+    if (user) {
+      slot.innerHTML = `
+        <div class="user-account-dropdown-wrap">
+          <button type="button" class="btn-account-header" onclick="toggleUserDropdown(event)" title="Tài khoản của tôi">
+            <span class="user-avatar-badge">${initials}</span>
+            <div class="user-account-labels">
+              <span class="user-hello-label">Xin chào,</span>
+              <span class="user-account-name">${firstName}</span>
+            </div>
+            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+          </button>
+          <div class="account-menu-popover" id="account-dropdown-menu">
+            <div class="account-menu-header">
+              <div class="account-menu-avatar">${initials}</div>
+              <div class="account-menu-info">
+                <div class="account-menu-name">${user.fullName}</div>
+                <div class="account-menu-phone"><i class="fa-solid fa-phone"></i> ${user.phone}</div>
+                ${user.email ? `<div class="account-menu-email">${user.email}</div>` : ''}
+              </div>
+            </div>
+            <div class="account-menu-links">
+              <a href="#" onclick="openProfileModal(); return false;">
+                <i class="fa-solid fa-id-card"></i> Thông tin cá nhân & Địa chỉ
+              </a>
+              <a href="order-tracking.html">
+                <i class="fa-solid fa-box-open"></i> Quản lý đơn hàng
+                <span class="menu-badge">${(typeof StorageManager !== 'undefined') ? StorageManager.getOrders().length : 0}</span>
+              </a>
+              <a href="prescription.html">
+                <i class="fa-solid fa-file-prescription"></i> Toa thuốc đã gửi
+                <span class="menu-badge">${(typeof StorageManager !== 'undefined') ? StorageManager.getPrescriptions().length : 0}</span>
+              </a>
+              <a href="cart.html">
+                <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng hiện tại
+              </a>
+              <div class="account-menu-divider"></div>
+              <button type="button" class="account-menu-logout" onclick="handleUserLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất tài khoản
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      slot.innerHTML = `
+        <button type="button" class="btn-header-login" onclick="openAuthModal('login')" title="Đăng nhập tài khoản MediPharm">
+          <i class="fa-regular fa-user"></i>
+          <span>Đăng nhập</span>
+        </button>
+      `;
+    }
+  });
+
+  // 3. Mobile Navigation user button
+  const mobileSlots = document.querySelectorAll('.mobile-auth-slot');
+  mobileSlots.forEach(slot => {
+    if (user) {
+      slot.innerHTML = `
+        <button class="mobile-nav-item" onclick="openProfileModal()">
+          <span class="user-avatar-dot" style="width:20px;height:20px;font-size:10px;margin-bottom:2px;display:inline-flex;align-items:center;justify-content:center;background:#0284C7;color:#fff;border-radius:50%;">${initials}</span>
+          <span>${firstName}</span>
+        </button>
+      `;
+    } else {
+      slot.innerHTML = `
+        <button class="mobile-nav-item" onclick="openAuthModal('login')">
+          <i class="fa-regular fa-user"></i>
+          <span>Tài khoản</span>
+        </button>
+      `;
+    }
+  });
+}
+
+function toggleUserDropdown(event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const dropdown = document.getElementById('account-dropdown-menu');
+  if (dropdown) {
+    dropdown.classList.toggle('show');
+  }
+}
+
+function openAuthModal(tab = 'login') {
+  ensureAuthModalsInDOM();
+  const modal = document.getElementById('auth-modal');
+  if (!modal) return;
+
+  switchAuthTab(tab);
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  const modal = document.getElementById('auth-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+function switchAuthTab(tab) {
+  const loginTabBtn = document.getElementById('tab-btn-login');
+  const registerTabBtn = document.getElementById('tab-btn-register');
+  const loginForm = document.getElementById('form-auth-login');
+  const registerForm = document.getElementById('form-auth-register');
+  const modalTitle = document.getElementById('auth-modal-title');
+
+  if (tab === 'login') {
+    if (loginTabBtn) loginTabBtn.classList.add('active');
+    if (registerTabBtn) registerTabBtn.classList.remove('active');
+    if (loginForm) loginForm.style.display = 'block';
+    if (registerForm) registerForm.style.display = 'none';
+    if (modalTitle) modalTitle.textContent = 'Đăng nhập MediPharm';
+  } else {
+    if (loginTabBtn) loginTabBtn.classList.remove('active');
+    if (registerTabBtn) registerTabBtn.classList.add('active');
+    if (loginForm) loginForm.style.display = 'none';
+    if (registerForm) registerForm.style.display = 'block';
+    if (modalTitle) modalTitle.textContent = 'Tạo tài khoản mới';
+  }
+}
+
+function fillSampleAccount(index = 0) {
+  const sample = (typeof SAMPLE_USERS !== 'undefined' && SAMPLE_USERS[index]) ? SAMPLE_USERS[index] : { phone: '0912345678', password: 'password123' };
+  const phoneInput = document.getElementById('login-phone');
+  const passInput = document.getElementById('login-password');
+  if (phoneInput) phoneInput.value = sample.phone;
+  if (passInput) passInput.value = sample.password;
+  showToast('Đã điền tài khoản mẫu', `${sample.fullName || 'Khách hàng'} (${sample.phone})`, 'info');
+}
+
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+  } else {
+    input.type = 'password';
+    btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+  }
+}
+
+function handleLoginSubmit(event) {
+  if (event) event.preventDefault();
+  const phoneOrEmail = document.getElementById('login-phone')?.value;
+  const password = document.getElementById('login-password')?.value;
+
+  const res = AuthManager.login(phoneOrEmail, password);
+  if (res.success) {
+    playInteractionSound('success');
+    showToast('Đăng nhập thành công!', res.message, 'success');
+    closeAuthModal();
+    renderAuthUI();
+    autofillFormsIfLoggedIn();
+    if (window.location.pathname.endsWith('login.html')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect') || 'index.html';
+      setTimeout(() => { window.location.href = redirect; }, 800);
+    }
+  } else {
+    playInteractionSound('delete');
+    showToast('Đăng nhập thất bại', res.message, 'error');
+  }
+}
+
+function handleRegisterSubmit(event) {
+  if (event) event.preventDefault();
+  const fullName = document.getElementById('reg-fullname')?.value;
+  const phone = document.getElementById('reg-phone')?.value;
+  const email = document.getElementById('reg-email')?.value;
+  const address = document.getElementById('reg-address')?.value;
+  const password = document.getElementById('reg-password')?.value;
+  const confirmPassword = document.getElementById('reg-confirm-password')?.value;
+
+  if (password !== confirmPassword) {
+    showToast('Mật khẩu không khớp', 'Vui lòng nhập lại mật khẩu xác nhận chính xác.', 'warning');
+    return;
+  }
+
+  const res = AuthManager.register({ fullName, phone, email, password, address });
+  if (res.success) {
+    playInteractionSound('success');
+    showToast('Đăng ký thành công!', res.message, 'success');
+    closeAuthModal();
+    renderAuthUI();
+    autofillFormsIfLoggedIn();
+    if (window.location.pathname.endsWith('login.html')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect') || 'index.html';
+      setTimeout(() => { window.location.href = redirect; }, 800);
+    }
+  } else {
+    playInteractionSound('delete');
+    showToast('Đăng ký không thành công', res.message, 'error');
+  }
+}
+
+function handleUserLogout() {
+  AuthManager.logout();
+  playInteractionSound('delete');
+  showToast('Đã đăng xuất', 'Hẹn gặp lại quý khách tại MediPharm GPP!', 'info');
+  const dropdown = document.getElementById('account-dropdown-menu');
+  if (dropdown) dropdown.classList.remove('show');
+  closeProfileModal();
+  renderAuthUI();
+}
+
+function openProfileModal() {
+  const user = AuthManager.getCurrentUser();
+  if (!user) {
+    openAuthModal('login');
+    return;
+  }
+  ensureAuthModalsInDOM();
+  const modal = document.getElementById('profile-modal');
+  if (!modal) return;
+
+  const initials = AuthManager.getInitials(user.fullName);
+  document.getElementById('profile-avatar-big').textContent = initials;
+  document.getElementById('profile-name-title').textContent = user.fullName;
+  document.getElementById('profile-id-badge').textContent = `Mã KH: ${user.id}`;
+  document.getElementById('profile-name-input').value = user.fullName;
+  document.getElementById('profile-phone-input').value = user.phone;
+  document.getElementById('profile-email-input').value = user.email || '';
+  document.getElementById('profile-address-input').value = user.address || '';
+
+  // Order count
+  const orders = StorageManager.getOrders();
+  const rxs = StorageManager.getPrescriptions();
+  document.getElementById('profile-orders-count').textContent = orders.length;
+  document.getElementById('profile-rx-count').textContent = rxs.length;
+
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+  const modal = document.getElementById('profile-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+function handleProfileSave(event) {
+  if (event) event.preventDefault();
+  const fullName = document.getElementById('profile-name-input')?.value;
+  const email = document.getElementById('profile-email-input')?.value;
+  const address = document.getElementById('profile-address-input')?.value;
+
+  const res = AuthManager.updateProfile({ fullName, email, address });
+  if (res.success) {
+    showToast('Đã cập nhật hồ sơ', res.message, 'success');
+    closeProfileModal();
+    renderAuthUI();
+  } else {
+    showToast('Lỗi cập nhật', res.message, 'error');
+  }
+}
+
+function autofillFormsIfLoggedIn() {
+  const user = (typeof AuthManager !== 'undefined') ? AuthManager.getCurrentUser() : null;
+  if (!user) return;
+
+  // Checkout page autofill
+  const checkoutName = document.getElementById('checkout-name') || document.getElementById('order-name');
+  const checkoutPhone = document.getElementById('checkout-phone') || document.getElementById('order-phone');
+  const checkoutEmail = document.getElementById('checkout-email') || document.getElementById('order-email');
+  const checkoutAddress = document.getElementById('checkout-address') || document.getElementById('order-address');
+
+  if (checkoutName && !checkoutName.value) checkoutName.value = user.fullName;
+  if (checkoutPhone && !checkoutPhone.value) checkoutPhone.value = user.phone;
+  if (checkoutEmail && !checkoutEmail.value) checkoutEmail.value = user.email || '';
+  if (checkoutAddress && !checkoutAddress.value) checkoutAddress.value = user.address || '';
+
+  // Prescription page autofill
+  const rxName = document.getElementById('rx-customer-name');
+  const rxPhone = document.getElementById('rx-customer-phone');
+  if (rxName && !rxName.value) rxName.value = user.fullName;
+  if (rxPhone && !rxPhone.value) rxPhone.value = user.phone;
+}
+
+function ensureAuthModalsInDOM() {
+  if (document.getElementById('auth-modal')) return;
+
+  const modalMarkup = `
+    <!-- AUTH MODAL (LOGIN / REGISTER) -->
+    <div class="medipharm-modal-overlay" id="auth-modal" onclick="if(event.target === this) closeAuthModal()">
+      <div class="auth-modal-dialog">
+        <button type="button" class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+        
+        <div class="auth-modal-header">
+          <div class="auth-brand-badge">
+            <i class="fa-solid fa-notes-medical"></i> MediPharm GPP
+          </div>
+          <h3 id="auth-modal-title">Đăng nhập MediPharm</h3>
+          <p class="auth-modal-sub">Trải nghiệm mua thuốc chuẩn GPP, tích điểm & quản lý đơn thuốc gia đình</p>
+          
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+            </button>
+            <button type="button" class="auth-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">
+              <i class="fa-solid fa-user-plus"></i> Đăng ký mới
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-modal-body">
+          <!-- LOGIN FORM -->
+          <form id="form-auth-login" onsubmit="handleLoginSubmit(event)">
+            <div class="quick-sample-box">
+              <div class="quick-sample-title">
+                <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Tài khoản mẫu dùng thử:
+              </div>
+              <div class="quick-sample-buttons">
+                <button type="button" class="btn-sample-account" onclick="fillSampleAccount(0)">
+                  <span>Tài khoản 1: <strong>0912345678</strong> (Anh An)</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button type="button" class="btn-sample-account" onclick="fillSampleAccount(1)">
+                  <span>Tài khoản 2: <strong>0987654321</strong> (Chị Yến Nhi)</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-phone"></i> Số điện thoại hoặc Email</label>
+              <input type="text" id="login-phone" placeholder="VD: 0912345678 hoặc an.nguyen@gmail.com" required autocomplete="username">
+            </div>
+
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-lock"></i> Mật khẩu</label>
+              <div class="auth-input-password-wrap">
+                <input type="password" id="login-password" placeholder="Nhập mật khẩu (mẫu: password123)" required autocomplete="current-password">
+                <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('login-password', this)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="auth-form-options">
+              <label class="remember-label">
+                <input type="checkbox" id="login-remember" checked> Ghi nhớ đăng nhập
+              </label>
+              <a href="#" onclick="showToast('Khôi phục mật khẩu', 'Vui lòng liên hệ hotline Dược sĩ 1800 6822 hoặc dùng mật khẩu mẫu: password123', 'info'); return false;">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-submit-auth">
+              <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập ngay
+            </button>
+
+            <div class="auth-switch-prompt">
+              Chưa có tài khoản? <a href="#" onclick="switchAuthTab('register'); return false;">Đăng ký miễn phí</a>
+            </div>
+          </form>
+
+          <!-- REGISTER FORM -->
+          <form id="form-auth-register" onsubmit="handleRegisterSubmit(event)" style="display: none;">
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-user"></i> Họ và tên <span class="req">*</span></label>
+              <input type="text" id="reg-fullname" placeholder="VD: Nguyễn Văn An" required>
+            </div>
+
+            <div class="form-row-auth">
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-phone"></i> Số điện thoại (10 số) <span class="req">*</span></label>
+                <input type="tel" id="reg-phone" placeholder="09xxxxxxxx" required pattern="^(03|05|07|08|09)\\d{8}$" title="Vui lòng nhập số di động 10 số">
+              </div>
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-envelope"></i> Email (Tùy chọn)</label>
+                <input type="email" id="reg-email" placeholder="email@domain.com">
+              </div>
+            </div>
+
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-location-dot"></i> Địa chỉ nhận hàng mặc định</label>
+              <input type="text" id="reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện...">
+            </div>
+
+            <div class="form-row-auth">
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-lock"></i> Mật khẩu <span class="req">*</span></label>
+                <div class="auth-input-password-wrap">
+                  <input type="password" id="reg-password" placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                  <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('reg-password', this)">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-shield-check"></i> Xác nhận mật khẩu <span class="req">*</span></label>
+                <div class="auth-input-password-wrap">
+                  <input type="password" id="reg-confirm-password" placeholder="Nhập lại mật khẩu" required minlength="6">
+                </div>
+              </div>
+            </div>
+
+            <div class="auth-terms-note">
+              <i class="fa-solid fa-shield-halved"></i> Bằng cách đăng ký, bạn đồng ý với Điều khoản sử dụng và Chính sách bảo mật dữ liệu y tế của MediPharm GPP.
+            </div>
+
+            <button type="submit" class="btn-submit-auth btn-submit-reg">
+              <i class="fa-solid fa-user-check"></i> Hoàn tất Đăng ký
+            </button>
+
+            <div class="auth-switch-prompt">
+              Đã có tài khoản? <a href="#" onclick="switchAuthTab('login'); return false;">Đăng nhập ngay</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div class="medipharm-modal-overlay" id="profile-modal" onclick="if(event.target === this) closeProfileModal()">
+      <div class="auth-modal-dialog profile-dialog">
+        <button type="button" class="modal-close-btn" onclick="closeProfileModal()">&times;</button>
+        
+        <div class="profile-modal-header">
+          <div class="profile-avatar-big" id="profile-avatar-big">MP</div>
+          <div class="profile-header-meta">
+            <h3 id="profile-name-title">Hồ sơ khách hàng</h3>
+            <span class="profile-id-badge" id="profile-id-badge">Mã KH: USER-1001</span>
+            <span class="profile-member-rank"><i class="fa-solid fa-medal" style="color: #F59E0B;"></i> Thành viên Vàng</span>
+          </div>
+        </div>
+
+        <div class="profile-quick-stats">
+          <div class="stat-box" onclick="closeProfileModal(); window.location.href='order-tracking.html';">
+            <div class="stat-number" id="profile-orders-count">0</div>
+            <div class="stat-label">Đơn thuốc & Vật tư</div>
+          </div>
+          <div class="stat-box" onclick="closeProfileModal(); window.location.href='prescription.html';">
+            <div class="stat-number" id="profile-rx-count">0</div>
+            <div class="stat-label">Toa thuốc đã gửi</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Chuẩn GPP</div>
+          </div>
+        </div>
+
+        <div class="auth-modal-body">
+          <form onsubmit="handleProfileSave(event)">
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-user"></i> Họ và tên</label>
+              <input type="text" id="profile-name-input" required>
+            </div>
+
+            <div class="form-row-auth">
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-phone"></i> Số điện thoại</label>
+                <input type="text" id="profile-phone-input" disabled style="background: #F1F5F9; cursor: not-allowed;">
+              </div>
+              <div class="form-group-auth">
+                <label><i class="fa-solid fa-envelope"></i> Email</label>
+                <input type="email" id="profile-email-input">
+              </div>
+            </div>
+
+            <div class="form-group-auth">
+              <label><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng mặc định</label>
+              <input type="text" id="profile-address-input" placeholder="Số nhà, đường, phường, quận...">
+            </div>
+
+            <div class="profile-action-buttons">
+              <button type="submit" class="btn-save-profile">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi
+              </button>
+              <button type="button" class="btn-logout-profile" onclick="handleUserLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', modalMarkup);
 }

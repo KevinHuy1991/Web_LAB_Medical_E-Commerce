@@ -1,6 +1,7 @@
 /**
  * MediPharm GPP - Hệ Thống Nhà Thuốc & Vật Tư Y Tế Chuẩn Quốc Tế
  * Mock Database: 16+ Sản Phẩm Chuẩn Y Khoa & Dược Điển Việt Nam
+ * (Cập nhật đường dẫn hình ảnh thực tế lưu trữ trong thư mục Images/)
  */
 
 const CATEGORIES = [
@@ -32,13 +33,13 @@ const PRODUCTS = [
     strength: '500mg / 65mg',
     activeIngredient: 'Paracetamol 500mg, Caffeine 65mg',
     category: 'otc',
-    classification: 'otc', // otc | rx | device | supply
-    targetAudience: 'adults', // children | adults | elderly | pregnant
+    classification: 'otc',
+    targetAudience: 'adults',
     origin: 'Việt Nam (GSK - Anh Quốc)',
     regNumber: 'VD-28491-17',
     packageSpec: 'Hộp 15 vỉ x 12 viên nén',
     manufacturer: 'Công ty TNHH Sanofi-Aventis Việt Nam / GSK',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-01.jpg',
     description: 'Giảm đau từ nhẹ đến vừa: đau đầu, đau nửa đầu, đau cơ gân, đau họng, đau răng, sốt sau tiêm hoặc do cảm cúm.',
     symptoms: ['fever-cold', 'cough-throat'],
     inStock: 120,
@@ -72,7 +73,7 @@ const PRODUCTS = [
     regNumber: 'VN-21950-19',
     packageSpec: 'Hộp 4 vỉ x 4 viên sủi',
     manufacturer: 'UPSA SAS - Pháp',
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-02.jpg',
     description: 'Thuốc viên sủi hòa tan nhanh trong nước, hấp thu nhanh, hiệu quả giảm đau hạ sốt chỉ sau 15-20 phút.',
     symptoms: ['fever-cold'],
     inStock: 85,
@@ -106,7 +107,7 @@ const PRODUCTS = [
     regNumber: 'VN-17937-14',
     packageSpec: 'Chai thủy tinh 100ml kèm cốc đong',
     manufacturer: 'Engelhard Arzneimittel GmbH & Co. KG',
-    image: 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-03.jpg',
     description: 'Chiết xuất lá thường xuân đặc chế, trị viêm đường hô hấp cấp có kèm ho, làm lỏng đờm, chống co thắt phế quản an toàn cho trẻ sơ sinh.',
     symptoms: ['cough-throat'],
     inStock: 95,
@@ -139,7 +140,7 @@ const PRODUCTS = [
     regNumber: 'VN-19823-16',
     packageSpec: 'Hộp 24 gói x 10ml',
     manufacturer: 'Reckitt Benckiser Healthcare (UK) Ltd',
-    image: 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-04.png',
     description: 'Tạo lớp màng bảo vệ ngăn trào ngược axit dạ dày thực quản, giảm nhanh cảm giác ợ nóng, ợ chua và khó tiêu do thừa axit.',
     symptoms: ['digestion'],
     inStock: 60,
@@ -172,7 +173,7 @@ const PRODUCTS = [
     regNumber: 'VD-24510-16',
     packageSpec: 'Lọ 100 viên bao phim',
     manufacturer: 'Công ty Cổ phần Dược phẩm OPC',
-    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-05.jpg',
     description: 'Kháng khuẩn đường ruột từ thảo dược thiên nhiên, điều trị viêm ruột, kiết lỵ, tiêu chảy do nhiễm trùng thức ăn an toàn.',
     symptoms: ['digestion'],
     inStock: 140,
@@ -205,7 +206,7 @@ const PRODUCTS = [
     regNumber: 'VD-21045-14',
     packageSpec: 'Chai 13ml',
     manufacturer: 'Công ty TNHH Rohto-Mentholatum Việt Nam',
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-06.jpg',
     description: 'Chống viêm, kháng khuẩn điều trị lẹo mắt, viêm kết mạc, viêm mí mắt, xoa dịu ngứa và đỏ mắt tức thì.',
     symptoms: ['allergy'],
     inStock: 110,
@@ -237,7 +238,7 @@ const PRODUCTS = [
     regNumber: 'VN-19543-16',
     packageSpec: 'Hộp 2 vỉ x 7 viên nén bao phim',
     manufacturer: 'Glaxo Wellcome Production - Pháp',
-    image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-07.jpg',
     description: 'Kháng sinh phổ rộng trị nhiễm khuẩn đường hô hấp trên và dưới, viêm xoang, viêm amidan, nhiễm trùng tiết niệu và da. (Cần đơn thuốc của bác sĩ).',
     symptoms: ['cough-throat', 'fever-cold'],
     inStock: 50,
@@ -271,7 +272,7 @@ const PRODUCTS = [
     regNumber: 'VD-22340-15',
     packageSpec: 'Hộp 3 vỉ x 10 viên nén',
     manufacturer: 'Công ty Cổ phần Dược Hậu Giang',
-    image: 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-08.png',
     description: 'Thuốc chẹn kênh canxi điều trị tăng huyết áp vô căn và cơn đau thắt ngực ổn định mạn tính. (Cần bác sĩ kê đơn).',
     symptoms: ['blood-pressure'],
     inStock: 75,
@@ -305,7 +306,7 @@ const PRODUCTS = [
     regNumber: 'VN-18231-14',
     packageSpec: 'Tuýp nhôm 15g',
     manufacturer: 'LEO Pharma / LEO Laboratories Ltd',
-    image: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-09.png',
     description: 'Kết hợp kháng sinh Acid fusidic và Hydrocortisone kháng viêm điều trị chàm viêm da dị ứng có nhiễm trùng. (Thuốc kê đơn).',
     symptoms: ['allergy'],
     inStock: 45,
@@ -329,7 +330,7 @@ const PRODUCTS = [
     id: 'prod-10',
     name: 'Viên Sủi Bổ Sung Năng Lượng Berocca Mango',
     strength: 'Tuýp 10 viên',
-    activeIngredient: 'Vitamin C 500mg, Vitamin B-Complex (B1, B2, B3, B5, B6, B12), Kẽm, Magie',
+    activeIngredient: 'Vitamin C 500mg, Vitamin B-Complex, Kẽm, Magie',
     category: 'supplements',
     classification: 'otc',
     targetAudience: 'adults',
@@ -337,7 +338,7 @@ const PRODUCTS = [
     regNumber: 'DKSP-4921/2020/ĐKSP',
     packageSpec: 'Tuýp 10 viên sủi vị xoài cam',
     manufacturer: 'PT Bayer Indonesia',
-    image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-10.jpg',
     description: 'Bổ sung đầy đủ 8 loại vitamin nhóm B, vitamin C liều cao cùng khoáng chất kẽm & canxi giúp tỉnh táo tinh thần, giảm căng thẳng mệt mỏi.',
     symptoms: ['immunity'],
     inStock: 130,
@@ -370,7 +371,7 @@ const PRODUCTS = [
     regNumber: 'DKSP-8214/2019/ĐKSP',
     packageSpec: 'Lọ lớn 400 viên nang mềm',
     manufacturer: 'Costco Wholesale Corporation - USA',
-    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-11.png',
     description: 'Hỗ trợ sức khỏe tim mạch, giảm triglyceride máu, bổ mắt, nuôi dưỡng võng mạc và duy trì chức năng tuần hoàn não bộ người cao tuổi.',
     symptoms: ['blood-pressure', 'immunity'],
     inStock: 70,
@@ -403,7 +404,7 @@ const PRODUCTS = [
     regNumber: 'VN-18921-15',
     packageSpec: 'Hộp 20 ống nhựa x 5ml',
     manufacturer: 'Sanofi S.p.A - Italy',
-    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-12.jpg',
     description: 'Cân bằng hệ vi sinh đường ruột, phục hồi đường ruột bị tổn thương sau khi dùng kháng sinh dài ngày, trị tiêu chảy và rối loạn tiêu hóa.',
     symptoms: ['digestion'],
     inStock: 105,
@@ -437,7 +438,7 @@ const PRODUCTS = [
     regNumber: 'Số lưu hành: 190001890/PCBA-HN',
     packageSpec: 'Thân máy, vòng bít (22-32cm), 4 pin AA, hướng dẫn sử dụng',
     manufacturer: 'Omron Healthcare Manufacturing Vietnam / Nhật Bản',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-13.jpg',
     description: 'Máy đo huyết áp điện tử bắp tay chuẩn xác y khoa, báo quấn đúng vòng bít, cảnh báo tăng huyết áp và nhịp tim bất thường.',
     symptoms: ['blood-pressure'],
     inStock: 40,
@@ -470,7 +471,7 @@ const PRODUCTS = [
     regNumber: 'Số lưu hành: 200000412/PCBA-HCM',
     packageSpec: 'Thân máy, túi đựng cao cấp, 2 pin AAA, HDSD',
     manufacturer: 'Microlife AG - Thụy Sĩ',
-    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-14.jpg',
     description: 'Đo nhiệt độ cơ thể không chạm trong 1 giây từ khoảng cách 5cm, đèn nền đổi màu cảnh báo sốt đỏ, bộ nhớ 30 lần đo tiện lợi cho bé.',
     symptoms: ['fever-cold'],
     inStock: 55,
@@ -502,7 +503,7 @@ const PRODUCTS = [
     regNumber: '210000892/PCBA-HCM',
     packageSpec: 'Hộp 30 chiếc (từng túi zip riêng biệt)',
     manufacturer: 'Công ty Cổ phần Thiết bị Y tế CareMax',
-    image: 'https://images.unsplash.com/photo-1586942593568-29361efcd571?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-15.jpg',
     description: 'Thiết kế 4D ôm khít khuôn mặt, không dính son môi, màng lọc 4 lớp kháng khuẩn BFE >= 99% ngăn ngừa giọt bắn và khói bụi.',
     symptoms: ['allergy', 'fever-cold'],
     inStock: 300,
@@ -536,7 +537,7 @@ const PRODUCTS = [
     regNumber: '170001540/PCBA-HN',
     packageSpec: 'Hộp 20 miếng dán chống nước',
     manufacturer: 'Laboratoires Urgo - France',
-    image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&q=80&w=500',
+    image: 'Images/prod-16.jpg',
     description: 'Băng gạc cá nhân trong suốt, chống thấm nước tuyệt đối khi tắm rửa hoặc bơi lội, bảo vệ vết thương trầy xước không bị nhiễm trùng.',
     symptoms: ['first-aid-care'],
     inStock: 180,
@@ -565,10 +566,10 @@ const SAMPLE_INITIAL_ORDERS = [
     customerName: 'Nguyễn Văn An',
     customerPhone: '0912345678',
     deliveryAddress: '107 Tân Cảng, Phường 22, Quận Bình Thạnh, TP. Hồ Chí Minh',
-    deliveryMethod: 'express', // express (2h) | standard | pickup
+    deliveryMethod: 'express',
     paymentMethod: 'vietqr',
     paymentStatus: 'paid',
-    status: 'delivering', // pending_rx | packing | delivering | completed | cancelled
+    status: 'delivering',
     hasRxMedicine: false,
     prescriptionCode: null,
     items: [
@@ -644,11 +645,46 @@ const SAMPLE_PRESCRIPTIONS = [
     createdAt: '2026-11-16T14:20:00Z',
     patientName: 'Lê Hoàng Yến Nhi (Bé 6 tuổi)',
     phone: '0987654321',
-    prescriptionImageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=600',
+    prescriptionImageUrl: 'Images/rx-sample-2.jpg',
     note: 'Bác sĩ BV Nhi Đồng kê đơn Augmentin và Men vi sinh, nhờ Dược sĩ kiểm tra liều dùng cho bé 20kg.',
     requestCallback: true,
     status: 'approved',
     pharmacistNotes: 'Dược sĩ đã gọi xác nhận: Liều dùng 1/2 viên x 2 lần/ngày sau ăn.'
+  },
+  {
+    code: 'RX-2026-8419',
+    createdAt: '2026-11-17T09:00:00Z',
+    patientName: 'Nguyễn Văn An',
+    phone: '0912345678',
+    prescriptionImageUrl: 'Images/rx-sample-1.jpg',
+    note: 'Đơn thuốc khám xoang mũi cấp BV Tai Mũi Họng.',
+    requestCallback: true,
+    status: 'pending',
+    pharmacistNotes: 'Dược sĩ trực đang kiểm tra toa thuốc...'
+  }
+];
+
+// Pre-seeded Registered Users for Testing Login & Register
+const SAMPLE_USERS = [
+  {
+    id: 'USER-1001',
+    fullName: 'Nguyễn Văn An',
+    phone: '0912345678',
+    email: 'an.nguyen@gmail.com',
+    password: 'password123',
+    address: '107 Tân Cảng, Phường 22, Quận Bình Thạnh, TP.HCM',
+    createdAt: '2026-10-10T08:00:00Z',
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200'
+  },
+  {
+    id: 'USER-1002',
+    fullName: 'Lê Hoàng Yến Nhi',
+    phone: '0987654321',
+    email: 'yennhi.le@gmail.com',
+    password: 'password123',
+    address: '45 Lê Văn Lương, Tân Phong, Quận 7, TP.HCM',
+    createdAt: '2026-11-01T10:30:00Z',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
   }
 ];
 
@@ -657,7 +693,7 @@ const DRUG_INTERACTIONS = [
   {
     drugA: 'Paracetamol',
     drugB: 'Rượu bia / Cồn',
-    severity: 'danger', // danger | warning | safe
+    severity: 'danger',
     title: 'Nguy cơ độc tính cho gan nghiêm trọng!',
     description: 'Uống rượu bia trong khi dùng Paracetamol làm tăng đáng kể nguy cơ hoại tử tế bào gan cấp do chuyển hóa thành chất độc NAPQI vượt ngưỡng giải độc của gan.'
   },

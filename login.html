@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập / Đăng Ký Tài Khoản | MediPharm GPP</title>
+  
+  <link rel="icon" type="image/svg+xml" href="Images/favicon.svg">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="toggleCartDrawer(false)">
+    <div class="cart-drawer" onclick="event.stopPropagation()">
+      <div class="cart-drawer-header">
+        <div class="cart-drawer-title">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h3>Giỏ Thuốc Của Bạn</h3>
+          <span class="cart-badge-count" id="drawer-item-count">0</span>
+        </div>
+        <button class="cart-drawer-close" onclick="toggleCartDrawer(false)">&times;</button>
+      </div>
+
+      <div class="cart-drawer-body" id="cart-drawer-items"></div>
+
+      <div class="cart-drawer-footer" id="cart-drawer-footer"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       1. TOP UTILITY BAR
+       ======================================================================== -->
+  <div class="top-utility-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="commit-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Thuốc chính hãng chuẩn GPP</span>
+        </div>
+        <div class="commit-item">
+          <i class="fa-solid fa-bolt-lightning"></i>
+          <span>Giao nhanh nội thành 2H</span>
+        </div>
+      </div>
+
+      <div class="top-bar-right">
+        <span class="gpp-cert-tag">
+          <i class="fa-solid fa-certificate"></i> ĐKKD Dược: 08392/HCM-GPP
+        </span>
+        <div class="user-auth-top-slot"></div>
+        <a href="tel:18006822" class="hotline-link">
+          <span class="pulse-dot"></span>
+          <i class="fa-solid fa-phone-volume"></i>
+          <span>Dược sĩ 24/7: 1800 6822</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. MAIN STICKY HEADER
+       ======================================================================== -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <!-- Brand Logo -->
+      <div class="brand-logo" onclick="window.location.href='index.html'">
+        <div class="brand-icon">
+          <i class="fa-solid fa-notes-medical"></i>
+        </div>
+        <div class="brand-text">
+          <h1>MediPharm <span class="brand-tag">GPP</span></h1>
+          <p>Nhà Thuốc & Vật Tư Y Tế Quốc Tế</p>
+        </div>
+      </div>
+
+      <!-- Smart Search Bar -->
+      <div class="header-search-wrap">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="main-search-input" 
+            placeholder="Tìm theo tên thuốc, hoạt chất (Paracetamol...), triệu chứng, số đăng ký..."
+            autocomplete="off"
+          >
+          <button type="button" onclick="window.location.href='shop.html?search=' + encodeURIComponent(document.getElementById('main-search-input').value)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Tìm thuốc</span>
+          </button>
+        </div>
+        <div class="search-suggestions-dropdown" id="search-suggestions"></div>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="header-actions">
+        <button class="btn-upload-rx" onclick="window.location.href='prescription.html'" title="Mua thuốc theo đơn của bác sĩ">
+          <i class="fa-solid fa-camera"></i>
+          <span>Gửi đơn thuốc (Rx)</span>
+        </button>
+
+        <button class="btn-track-order" onclick="window.location.href='order-tracking.html'" title="Tra cứu tiến độ giao hàng">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Tra cứu đơn</span>
+        </button>
+
+        <!-- User Authentication Header Slot -->
+        <div class="user-auth-header-slot"></div>
+
+        <!-- Cart Trigger Button -->
+        <button class="cart-trigger-btn" onclick="toggleCartDrawer(true)" title="Xem giỏ hàng">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-total-preview" class="cart-total-text">0 ₫</span>
+          <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       3. CATEGORY MEGA BAR / MAIN NAVIGATION
+       ======================================================================== -->
+  <nav class="category-nav-bar">
+    <div class="container category-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+      <a href="shop.html" class="cat-nav-item"><i class="fa-solid fa-store"></i> Cửa hàng Dược phẩm</a>
+      <a href="prescription.html" class="cat-nav-item"><i class="fa-solid fa-file-prescription"></i> Mua theo toa (Rx)</a>
+      <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
+      <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
+      <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+      <a href="login.html" class="cat-nav-item active"><i class="fa-solid fa-user-circle"></i> Tài khoản</a>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       4. AUTHENTICATION PAGE CONTENT
+       ======================================================================== -->
+  <main class="login-page-main">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <div class="breadcrumb" style="padding: 16px 0 24px;">
+        <a href="index.html">Trang chủ</a>
+        <i class="fa-solid fa-angle-right"></i>
+        <span>Tài khoản thành viên</span>
+      </div>
+
+      <div class="auth-page-grid">
+        
+        <!-- Left: Brand Perks & GPP Trust Column -->
+        <div class="auth-perks-card">
+          <div class="perks-badge">
+            <i class="fa-solid fa-shield-heart"></i> HỆ THỐNG Y TẾ CHUẨN GPP
+          </div>
+          <h2>Chăm Sóc Sức Khỏe Gia Đình Toàn Diện</h2>
+          <p class="perks-desc">
+            Đăng nhập tài khoản MediPharm GPP để theo dõi lịch sử dùng thuốc, bảo quản hồ sơ bệnh án gia đình và nhận hỗ trợ trực tiếp từ Dược sĩ Chuyên khoa.
+          </p>
+
+          <div class="perks-list">
+            <div class="perk-item">
+              <div class="perk-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284C7;">
+                <i class="fa-solid fa-percent"></i>
+              </div>
+              <div class="perk-info">
+                <h4>Tích Điểm Đến 3% Mọi Đơn Hàng</h4>
+                <p>Điểm thưởng được quy đổi trừ trực tiếp vào đơn thuốc tiếp theo hoặc quà tặng sức khỏe.</p>
+              </div>
+            </div>
+
+            <div class="perk-item">
+              <div class="perk-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+                <i class="fa-solid fa-user-doctor"></i>
+              </div>
+              <div class="perk-info">
+                <h4>Dược Sĩ Riêng Tư Vấn 1 - 1</h4>
+                <p>Hỗ trợ kiểm tra tương tác thuốc, nhắc lịch tái khám và tư vấn liều dùng an toàn 24/7.</p>
+              </div>
+            </div>
+
+            <div class="perk-item">
+              <div class="perk-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">
+                <i class="fa-solid fa-file-waveform"></i>
+              </div>
+              <div class="perk-info">
+                <h4>Lưu Trữ Đơn Thuốc Điện Tử</h4>
+                <p>Quản lý toàn bộ toa thuốc của người thân, tái đặt thuốc mãn tính chỉ với 1 chạm.</p>
+              </div>
+            </div>
+
+            <div class="perk-item">
+              <div class="perk-icon" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">
+                <i class="fa-solid fa-truck-fast"></i>
+              </div>
+              <div class="perk-info">
+                <h4>Giao Thuốc Hỏa Tốc Miễn Phí</h4>
+                <p>Miễn cước giao hỏa tốc 2 giờ nội thành cho thành viên thân thiết với đơn từ 150k.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pharmacy-hotline-box">
+            <i class="fa-solid fa-phone-volume"></i>
+            <div>
+              <div class="hl-title">Tổng đài Dược sĩ Chuyên môn (Miễn cước):</div>
+              <div class="hl-number">1800 6822 (06:30 – 22:30 hàng ngày)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Auth Form Container (Login & Register Tabs) -->
+        <div class="auth-form-card">
+          
+          <!-- Tab Navigation -->
+          <div class="auth-tabs-nav">
+            <button type="button" class="auth-tab-link active" id="page-tab-login" onclick="switchPageAuthTab('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+            </button>
+            <button type="button" class="auth-tab-link" id="page-tab-register" onclick="switchPageAuthTab('register')">
+              <i class="fa-solid fa-user-plus"></i> Đăng Ký Tài Khoản
+            </button>
+          </div>
+
+          <!-- Quick Test Accounts Widget -->
+          <div class="quick-sample-box" style="margin: 20px 0;">
+            <div class="quick-sample-title">
+              <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> Tài khoản kiểm thử nhanh (Bấm để điền tự động):
+            </div>
+            <div class="quick-sample-buttons">
+              <button type="button" class="btn-sample-account" onclick="fillPageSampleAccount(0)">
+                <span>Tài khoản 1: <strong>0912345678</strong> (Nguyễn Văn An)</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <button type="button" class="btn-sample-account" onclick="fillPageSampleAccount(1)">
+                <span>Tài khoản 2: <strong>0987654321</strong> (Lê Hoàng Yến Nhi)</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- PAGE LOGIN FORM -->
+          <form id="page-login-form" onsubmit="handlePageLoginSubmit(event)">
+            <div class="form-group-auth">
+              <label for="page-login-phone"><i class="fa-solid fa-phone"></i> Số điện thoại hoặc Email <span class="req">*</span></label>
+              <input type="text" id="page-login-phone" placeholder="Nhập số điện thoại (0912345678) hoặc email" required autocomplete="username">
+            </div>
+
+            <div class="form-group-auth">
+              <label for="page-login-pass"><i class="fa-solid fa-lock"></i> Mật khẩu <span class="req">*</span></label>
+              <div class="auth-input-password-wrap">
+                <input type="password" id="page-login-pass" placeholder="Nhập mật khẩu (Mẫu: password123)" required autocomplete="current-password">
+                <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('page-login-pass', this)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="auth-form-options">
+              <label class="remember-label">
+                <input type="checkbox" id="page-login-remember" checked> Ghi nhớ đăng nhập
+              </label>
+              <a href="#" onclick="showToast('Khôi phục mật khẩu', 'Vui lòng gọi hotline 1800 6822 hoặc dùng mật khẩu mẫu: password123', 'info'); return false;">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-submit-auth">
+              <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập Vào MediPharm
+            </button>
+
+            <div class="auth-switch-prompt" style="margin-top: 20px;">
+              Chưa có tài khoản? <a href="#" onclick="switchPageAuthTab('register'); return false;">Đăng ký ngay tại đây</a>
+            </div>
+          </form>
+
+          <!-- PAGE REGISTER FORM -->
+          <form id="page-register-form" onsubmit="handlePageRegisterSubmit(event)" style="display: none;">
+            <div class="form-group-auth">
+              <label for="page-reg-name"><i class="fa-solid fa-user"></i> Họ và tên quý khách <span class="req">*</span></label>
+              <input type="text" id="page-reg-name" placeholder="Ví dụ: Nguyễn Văn An" required>
+            </div>
+
+            <div class="form-row-auth">
+              <div class="form-group-auth">
+                <label for="page-reg-phone"><i class="fa-solid fa-phone"></i> Số điện thoại (10 số) <span class="req">*</span></label>
+                <input type="tel" id="page-reg-phone" placeholder="09xxxxxxxx" required pattern="^(03|05|07|08|09)\d{8}$" title="Vui lòng nhập số di động 10 số (VD: 0912345678)">
+              </div>
+              <div class="form-group-auth">
+                <label for="page-reg-email"><i class="fa-solid fa-envelope"></i> Địa chỉ Email</label>
+                <input type="email" id="page-reg-email" placeholder="email@gmail.com">
+              </div>
+            </div>
+
+            <div class="form-group-auth">
+              <label for="page-reg-address"><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng mặc định</label>
+              <input type="text" id="page-reg-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, TP...">
+            </div>
+
+            <div class="form-row-auth">
+              <div class="form-group-auth">
+                <label for="page-reg-pass"><i class="fa-solid fa-lock"></i> Mật khẩu <span class="req">*</span></label>
+                <div class="auth-input-password-wrap">
+                  <input type="password" id="page-reg-pass" placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                  <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('page-reg-pass', this)">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group-auth">
+                <label for="page-reg-confirm"><i class="fa-solid fa-shield-check"></i> Xác nhận mật khẩu <span class="req">*</span></label>
+                <div class="auth-input-password-wrap">
+                  <input type="password" id="page-reg-confirm" placeholder="Nhập lại mật khẩu" required minlength="6">
+                </div>
+              </div>
+            </div>
+
+            <div class="auth-terms-note">
+              <i class="fa-solid fa-shield-halved"></i> Bằng việc đăng ký tài khoản, quý khách đồng ý với Điều khoản Dịch vụ và Quy chế Bảo vệ Dữ liệu Y tế Cá nhân của Nhà thuốc MediPharm GPP.
+            </div>
+
+            <button type="submit" class="btn-submit-auth btn-submit-reg">
+              <i class="fa-solid fa-user-check"></i> Hoàn Tất Đăng Ký Tài Khoản
+            </button>
+
+            <div class="auth-switch-prompt" style="margin-top: 20px;">
+              Đã có tài khoản? <a href="#" onclick="switchPageAuthTab('login'); return false;">Đăng nhập ngay</a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       5. FOOTER
+       ======================================================================== -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <i class="fa-solid fa-notes-medical"></i>
+          <span>MediPharm GPP</span>
+        </div>
+        <p class="footer-desc">
+          Hệ thống bán lẻ Dược phẩm và Vật tư Y tế tiêu chuẩn GPP hàng đầu Việt Nam. Cam kết 100% thuốc thật, đúng giá niêm yết, dược sĩ tư vấn chuẩn y khoa.
+        </p>
+        <div class="gpp-license-badge">
+          <i class="fa-solid fa-award"></i>
+          <div>
+            <strong>Giấy CN Đủ ĐKKD Dược:</strong> 08392/HCM-GPP do Sở Y Tế TP.HCM cấp ngày 15/04/2021.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Danh Mục Sản Phẩm</h4>
+        <ul>
+          <li><a href="shop.html?cat=otc">Thuốc Không Kê Đơn (OTC)</a></li>
+          <li><a href="shop.html?cat=rx">Thuốc Kê Đơn (Rx)</a></li>
+          <li><a href="shop.html?cat=supplements">Thực Phẩm Chức Năng</a></li>
+          <li><a href="shop.html?cat=devices">Thiết Bị Y Tế Gia Đình</a></li>
+          <li><a href="shop.html?cat=firstaid">Sơ Cứu & Băng Gạc</a></li>
+          <li><a href="shop.html?cat=personal">Chăm Sóc Mắt & Vệ Sinh</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hỗ Trợ Khách Hàng</h4>
+        <ul>
+          <li><a href="prescription.html">Gửi ảnh đơn thuốc bác sĩ</a></li>
+          <li><a href="order-tracking.html">Tra cứu hành trình đơn thuốc</a></li>
+          <li><a href="health-tools.html">Tính chỉ số BMI & Tương tác thuốc</a></li>
+          <li><a href="contact.html">Tìm nhà thuốc MediPharm gần nhất</a></li>
+          <li><a href="login.html">Đăng ký & Đăng nhập thành viên</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Hệ & Dược Sĩ Trực</h4>
+        <p style="margin-bottom: 8px;">Tổng đài Dược sĩ (24/7): <strong style="color: #38BDF8;">1800 6822</strong> (Miễn cước)</p>
+        <p style="margin-bottom: 8px;">Góp ý & Khiếu nại: <strong>(028) 7300 8866</strong></p>
+        <p style="margin-bottom: 12px;">Email: <strong>cskh@medipharm.vn</strong></p>
+        <div style="display: flex; gap: 10px; font-size: 18px; color: #CBD5E1;">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-youtube"></i>
+          <i class="fa-brands fa-tiktok"></i>
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform. Mọi quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       6. MOBILE BOTTOM NAVIGATION BAR
+       ======================================================================== -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-item" onclick="window.location.href='index.html'">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='shop.html'">
+      <i class="fa-solid fa-store"></i>
+      <span>Cửa hàng</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='prescription.html'">
+      <i class="fa-solid fa-camera" style="color: #D97706;"></i>
+      <span>Gửi toa Rx</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='cart.html'">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Giỏ hàng</span>
+      <span class="cart-badge" id="mobile-cart-badge" style="display: none; position: absolute; top: -2px; right: 8px; width: 16px; height: 16px; font-size: 9px;">0</span>
+    </button>
+    <div class="mobile-auth-slot"></div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/storage.js"></script>
+  <script src="Scripts/cart.js"></script>
+  <script src="Scripts/app.js"></script>
+
+  <script>
+    // Tab switching for dedicated login.html
+    function switchPageAuthTab(tab) {
+      const loginTab = document.getElementById('page-tab-login');
+      const regTab = document.getElementById('page-tab-register');
+      const loginForm = document.getElementById('page-login-form');
+      const regForm = document.getElementById('page-register-form');
+
+      if (tab === 'login') {
+        loginTab.classList.add('active');
+        regTab.classList.remove('active');
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+      } else {
+        loginTab.classList.remove('active');
+        regTab.classList.add('active');
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+      }
+    }
+
+    // Fill sample account in page
+    function fillPageSampleAccount(index) {
+      const sample = SAMPLE_USERS[index] || SAMPLE_USERS[0];
+      document.getElementById('page-login-phone').value = sample.phone;
+      document.getElementById('page-login-pass').value = sample.password;
+      showToast('Đã điền tài khoản mẫu', `${sample.fullName} (${sample.phone})`, 'info');
+    }
+
+    // Handle Page Login Submit
+    function handlePageLoginSubmit(e) {
+      e.preventDefault();
+      const phoneOrEmail = document.getElementById('page-login-phone').value;
+      const pass = document.getElementById('page-login-pass').value;
+
+      const res = AuthManager.login(phoneOrEmail, pass);
+      if (res.success) {
+        playInteractionSound('success');
+        showToast('Đăng nhập thành công!', res.message, 'success');
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect') || 'index.html';
+        setTimeout(() => {
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        playInteractionSound('delete');
+        showToast('Đăng nhập thất bại', res.message, 'error');
+      }
+    }
+
+    // Handle Page Register Submit
+    function handlePageRegisterSubmit(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('page-reg-name').value;
+      const phone = document.getElementById('page-reg-phone').value;
+      const email = document.getElementById('page-reg-email').value;
+      const address = document.getElementById('page-reg-address').value;
+      const pass = document.getElementById('page-reg-pass').value;
+      const confirmPass = document.getElementById('page-reg-confirm').value;
+
+      if (pass !== confirmPass) {
+        showToast('Mật khẩu không khớp', 'Vui lòng nhập lại mật khẩu xác nhận chính xác.', 'warning');
+        return;
+      }
+
+      const res = AuthManager.register({ fullName, phone, email, password: pass, address });
+      if (res.success) {
+        playInteractionSound('success');
+        showToast('Đăng ký thành công!', res.message, 'success');
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect') || 'index.html';
+        setTimeout(() => {
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        playInteractionSound('delete');
+        showToast('Đăng ký không thành công', res.message, 'error');
+      }
+    }
+
+    // On page load: check URL hash or params
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('tab') === 'register' || window.location.hash === '#register') {
+        switchPageAuthTab('register');
+      }
+
+      // If user is already logged in, redirect or display friendly status
+      const currentUser = AuthManager.getCurrentUser();
+      if (currentUser && !urlParams.get('stay')) {
+        showToast('Bạn đã đăng nhập', `Đang chuyển hướng về trang chủ (${currentUser.fullName})...`, 'info');
+        setTimeout(() => {
+          window.location.href = urlParams.get('redirect') || 'index.html';
+        }, 1200);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Ignore raw root screen recording dumps
+/*.mp4
+.DS_Store
+Thumbs.db

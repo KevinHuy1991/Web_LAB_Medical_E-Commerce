@@ -26,6 +26,7 @@
         </div>
       </div>
       <div class="top-bar-right">
+        <div class="user-auth-top-slot"></div>
         <a href="tel:18006822" class="hotline-link">
           <span class="pulse-dot"></span>
           <i class="fa-solid fa-phone-volume"></i>
@@ -47,6 +48,7 @@
       </div>
 
       <div class="header-actions">
+        <div class="user-auth-header-slot"></div>
         <a href="cart.html" class="btn" style="background: #F1F5F9; color: #334155; font-weight: 700; padding: 9px 16px; border-radius: var(--radius-md);">
           <i class="fa-solid fa-arrow-left"></i> Quay lại giỏ hàng
         </a>
@@ -63,6 +65,7 @@
       <a href="health-tools.html" class="cat-nav-item"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
       <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
       <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+      <a href="login.html" class="cat-nav-item"><i class="fa-solid fa-user-circle"></i> Tài khoản</a>
     </div>
   </nav>
 
@@ -79,6 +82,17 @@
 
   <!-- Checkout Section -->
   <section class="container" style="padding-bottom: 60px;">
+    <!-- Auth Incentive Banner (if not logged in) -->
+    <div id="checkout-auth-banner" class="checkout-auth-prompt" style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div style="font-size: 13px; color: #166534; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-user-check" style="color: #10B981; font-size: 18px;"></i>
+        <span>Đăng nhập hoặc đăng ký tài khoản MediPharm để <strong>tích điểm 3%</strong> và tự động điền địa chỉ giao hàng.</span>
+      </div>
+      <button type="button" onclick="openAuthModal('login')" style="background: #10B981; color: #FFFFFF; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập ngay
+      </button>
+    </div>
+
     <!-- Rx Notice -->
     <div class="cart-rx-alert" id="checkout-rx-alert" style="display: none; border-radius: var(--radius-md); margin-bottom: 20px;">
       <i class="fa-solid fa-shield-halved" style="font-size: 22px; color: #D97706;"></i>
@@ -308,6 +322,28 @@
       <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
     </div>
   </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-item" onclick="window.location.href='index.html'">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='shop.html'">
+      <i class="fa-solid fa-store"></i>
+      <span>Cửa hàng</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='prescription.html'">
+      <i class="fa-solid fa-camera" style="color: #D97706;"></i>
+      <span>Gửi toa Rx</span>
+    </button>
+    <button class="mobile-nav-item active" onclick="window.location.href='cart.html'">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Giỏ hàng</span>
+      <span class="cart-badge" id="mobile-cart-badge" style="display: none; position: absolute; top: -2px; right: 8px; width: 16px; height: 16px; font-size: 9px;">0</span>
+    </button>
+    <div class="mobile-auth-slot"></div>
+  </nav>
 
   <!-- Scripts -->
   <script src="Scripts/data.js"></script>

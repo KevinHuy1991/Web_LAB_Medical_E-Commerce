@@ -26,6 +26,7 @@
         </div>
       </div>
       <div class="top-bar-right">
+        <div class="user-auth-top-slot"></div>
         <a href="tel:18006822" class="hotline-link">
           <span class="pulse-dot"></span>
           <i class="fa-solid fa-phone-volume"></i>
@@ -50,6 +51,7 @@
         <a href="shop.html" class="btn" style="background: #F1F5F9; color: #334155; font-weight: 700; padding: 9px 16px; border-radius: var(--radius-md);">
           <i class="fa-solid fa-store"></i> Đến Cửa Hàng
         </a>
+        <div class="user-auth-header-slot"></div>
         <a href="cart.html" class="cart-trigger-btn">
           <i class="fa-solid fa-cart-shopping"></i>
           <span id="cart-total-preview">0 ₫</span>
@@ -68,6 +70,7 @@
       <a href="health-tools.html" class="cat-nav-item active"><i class="fa-solid fa-weight-scale"></i> Tiện ích y tế & BMI</a>
       <a href="order-tracking.html" class="cat-nav-item"><i class="fa-solid fa-truck-ramp-box"></i> Tra cứu đơn hàng</a>
       <a href="contact.html" class="cat-nav-item"><i class="fa-solid fa-location-dot"></i> Hệ thống nhà thuốc</a>
+      <a href="login.html" class="cat-nav-item"><i class="fa-solid fa-user-circle"></i> Tài khoản</a>
     </div>
   </nav>
 
@@ -231,6 +234,28 @@
       <p>© 2026 MediPharm GPP Pharmacy & Medical Supplies Platform.</p>
     </div>
   </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-item" onclick="window.location.href='index.html'">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='shop.html'">
+      <i class="fa-solid fa-store"></i>
+      <span>Cửa hàng</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='prescription.html'">
+      <i class="fa-solid fa-camera" style="color: #D97706;"></i>
+      <span>Gửi toa Rx</span>
+    </button>
+    <button class="mobile-nav-item" onclick="window.location.href='cart.html'">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Giỏ hàng</span>
+      <span class="cart-badge" id="mobile-cart-badge" style="display: none; position: absolute; top: -2px; right: 8px; width: 16px; height: 16px; font-size: 9px;">0</span>
+    </button>
+    <div class="mobile-auth-slot"></div>
+  </nav>
 
   <!-- Scripts -->
   <script src="Scripts/data.js"></script>
